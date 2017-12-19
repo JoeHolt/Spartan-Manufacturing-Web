@@ -1,0 +1,15 @@
+{
+  "name": "spartanman",
+  "version": "1.0.0",
+  "description": "Spartan Manufacturing Site",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Joe Holt",
+  "license": "ISC",
+  "dependencies": {
+    "expres": "0.0.5",
+    "express": "^4.16.2"
+  }
+}
