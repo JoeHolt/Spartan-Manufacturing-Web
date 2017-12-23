@@ -18,6 +18,7 @@ app.get('/api/getorders', function(req,res) {
       console.error("Error recieving parts from database");
       return;
     }
+    result.sort(function(a,b){return a.number - b.number});
     res.send(JSON.stringify(result));
   });
 })

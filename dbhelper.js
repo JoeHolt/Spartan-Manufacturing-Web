@@ -43,7 +43,7 @@ exports.deleteOrder = function (url, number) {
       console.error("Error connecting to database");
       callback(err);
       return;
-    } 
+    }
     var result = db.collection("orders").deleteMany({ "number": number })
     db.close;
   });
