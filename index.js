@@ -44,7 +44,11 @@ app.post('/api/addorder', function(req,res) {
       return;
     }
     var date = (new Date()).toString();
-    db.addOrder(url, req.body.name, Number(result) + 1, date);
+    var n = Number(req.body.number);
+    if (req.body.number == "") {
+      n = Number(result) + 1
+    }
+    db.addOrder(url, req.body.name, n, date);
     console.log('Added order: ' + req.body.name);
     res.sendFile(__dirname + '/public/orders.html');
   });
