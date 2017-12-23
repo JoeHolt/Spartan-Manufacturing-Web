@@ -34,9 +34,11 @@ app.get('/api/getproducts', function(req,res) {
 })
 
 app.post('/api/addorder', function(req,res) {
-  db.addOrder(url, req.body.name, req.body.number);
-  console.log('Added order: ' + req.body.name);
-  res.sendFile(__dirname + '/public/orders.html');
+  db.maxOrderNumber(url, function(err, result) {
+    db.addOrder(url, req.body.name, Number(result) + 1);
+    console.log('Added order: ' + req.body.name);
+    res.sendFile(__dirname + '/public/orders.html');
+  });
 });
 
 app.post('/api/deleteorder', function(req,res) {
