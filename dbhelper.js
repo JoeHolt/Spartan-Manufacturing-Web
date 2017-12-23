@@ -39,13 +39,13 @@ exports.addOrder = function (url, name, number, date) {
 }
 
 // deleteOrder: Deletes an order with a certain number
-exports.deleteOrder = function (url, number) {
+exports.deleteOrder = function (url, num) {
   client.connect(url + "SpartanMan", function(err, db) {
     if (err) {
       console.error("Error connecting to database");
       return;
     }
-    db.collection('orders').deleteMany({ "number": number })
+    db.collection('orders').deleteMany({ "number": Number(num) })
     db.close;
   });
 };
