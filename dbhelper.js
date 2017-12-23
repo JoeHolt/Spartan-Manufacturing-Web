@@ -27,13 +27,13 @@ exports.getAllObjects = function (url, collection, callback) {
 };
 
 // addOrder: Adds an order with a certain name and number
-exports.addOrder = function (url, name, number, date) {
+exports.addOrder = function (url, name, number, date, notes) {
   client.connect(url + "SpartanMan", function(err, db) {
     if (err) {
       console.error('Error connection to database: ' + err.stack);
       return;
     }
-    db.collection('orders').insert({ "name": name, "number": number, completed: 'no', date: date });
+    db.collection('orders').insert({ "name": name, "number": number, "completed": 'no', "date": date, "notes": notes });
     db.close;
   })
 }
