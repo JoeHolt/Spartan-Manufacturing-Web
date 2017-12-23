@@ -20,7 +20,7 @@ exports.getAllObjects = function (url, collection, callback) {
       }
       console.log(result.length + " objects found in " + collection);
       callback(0, result);
-
+      updatePendingProducts(url)
       db.close;
     });
   });
@@ -34,6 +34,7 @@ exports.addOrder = function (url, name, number, date, notes) {
       return;
     }
     db.collection('orders').insert({ "name": name, "number": number, "completed": 'no', "date": date, "notes": notes });
+    updatePendingProducts(url)
     db.close;
   })
 }
@@ -46,6 +47,7 @@ exports.deleteOrder = function (url, num) {
       return;
     }
     db.collection('orders').deleteMany({ "number": Number(num) })
+    updatePendingProducts(url)
     db.close;
   });
 };
@@ -85,3 +87,34 @@ exports.maxOrderNumber = function (url, callback) {
     });
   });
 };
+
+// Other functions =============================================================
+
+// updateProducts: updates the products with how many pending orders there address
+var updatePendingProducts = function(url) {
+  client.connect(url + 'SpartanMan', function(err, db) {
+    if (err) {
+      console.error('Error connecting to databse');
+      return;
+    }
+    db.collection('products').find({}).toArray(function(err, result) {
+      if (err) {
+        console.error("Error reading from database");
+      }
+      for (var i = 0; i < result.length; i++) {
+        var product_name = result[i].name;
+        db.collection('products').update({"name": product_name}, { $set: { "pending": 0 }})
+        db.collection('orders').find({"name": product_name}).toArray(function(err,res) {
+          if (err) {
+            console.error("Error reading orders from database");
+          }
+          var pending = res.length;
+          if (pending > 0) {
+            db.collection('products').update({"name": res[0].name}, { $set: { "pending": pending }})
+          }
+        })
+      }
+      db.close;
+    });
+  });
+}

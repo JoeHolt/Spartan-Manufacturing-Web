@@ -19,6 +19,7 @@
           <th align='left'>Price($)</th>
           <th align='left'>Current Inventory</th>
           <th align='left'>Pending Orders</th>
+          <th align='left'>Net</th>
           <th align='left'>ID</th>
         </thead>
         <tbody ng-repeat="p in products">
@@ -26,7 +27,8 @@
             <td>{{ p.name }}</td>
             <td>{{ p.price }}</td>
             <td>{{ p.stock }}</td>
-            <td>2</td>
+            <td>{{ p.pending }}</td>
+            <td>{{ p.stock - 2}}</td>
             <td>{{ p.id }}</td>
           </tr>
         </tbody>
