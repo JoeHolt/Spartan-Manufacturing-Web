@@ -12,8 +12,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 // GET/POST requests ===========================================================
 app.get('/api/getorders', function(req,res) {
-
-  db.getAllOrders(url, function(err, result) {
+  db.getAllObjects(url, "orders", function(err, result) {
     if (err) {
       console.error("Error recieving parts from database");
       return;
@@ -21,6 +20,17 @@ app.get('/api/getorders', function(req,res) {
     result.sort(function(a,b){return a.number - b.number});
     res.send(JSON.stringify(result));
   });
+})
+
+app.get('/api/getproducts', function(req,res) {
+  db.getAllObjects(url, "products", function(err, result) {
+    if (err) {
+      console.error("Error recieving parts from database");
+      return;
+    }
+    result.sort(function(a,b){return a.name - b.name});
+    res.send(JSON.stringify(result));
+  })
 })
 
 app.post('/api/addorder', function(req,res) {

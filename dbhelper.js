@@ -4,20 +4,20 @@ var client = mongo.MongoClient;
 
 // Functions ===================================================================
 
-exports.getAllOrders = function (url, callback) {
+exports.getAllObjects = function (url, collection, callback) {
   client.connect(url + "SpartanMan", function(err, db) {
     if (err) {
       console.error("Error connecting to database: " + err.stack);
       callback(err);
       return;
     }
-    db.collection("orders").find({}).sort({ name: 1}).toArray(function(err, result) {
+    db.collection(collection).find({}).sort({ name: 1}).toArray(function(err, result) {
       if (err) {
         console.error("Error finding orders: " + err.stack);
         callback(err);
         return;
       }
-      console.log(result.length + " parts found in database");
+      console.log(result.length + " objects found in " + collection);
       callback(0, result);
 
       db.close;

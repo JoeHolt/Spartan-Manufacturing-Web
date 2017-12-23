@@ -10,7 +10,17 @@ var dataController = function mainController($scope, $http){
   }).then(function(result) {
     $scope.orders = result.data
   }, function(error) {
-    console.log(console.error());
+    console.log(error);
+  });
+
+  $http({
+    method: 'GET',
+    url: '/api/getproducts'
+  }).then(function(result) {
+    // console.log(result.data);
+    $scope.products = result.data
+  }, function(error) {
+    console.log(error);
   });
 
 }

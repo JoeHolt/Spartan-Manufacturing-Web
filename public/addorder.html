@@ -2,13 +2,19 @@
 <html>
   <head>
     <title>Add Order</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="/javascript/core.js"></script>
+
   </head>
-  <body>
+  <body ng-app="SpartanManApp">
     <a href="/orders.html">orders</a>
     <h1>Add Order</h1>
-    <form action="/api/addorder/" method="POST">
+    <form action="/api/addorder/" method="POST" ng-controller="dataController">
       Order Name:<br>
-      <input type="text" name="name"><br>
+      <select name="name">
+        <option ng-repeat="p in products" value="{{ p.name }}">{{ p.name }}</option>
+      </select><br>
       Order Number:<br>
       <input type="text" name="number"><br>
       <input type="submit" value="submit">
