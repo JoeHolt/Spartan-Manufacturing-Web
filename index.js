@@ -2,7 +2,8 @@
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
-var orders = [{ 'name': 'Test P1', 'number': 000001, 'completed': 'yes' }];
+var db = require('./dbhelper');
+var url = "mongodb://localhost:27017/";         // Database url
 
 // Set up ======================================================================
 app.use(express.static('public'));
@@ -11,15 +12,27 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 // GET/POST requests ===========================================================
 app.get('/api/getorders', function(req,res) {
-  res.send(JSON.stringify(orders));
+
+  db.getAllOrders(url, function(err, result) {
+    if (err) {
+      console.error("Error recieving parts from database");
+      return;
+    }
+    res.send(JSON.stringify(result));
+  });
 })
 
 app.post('/api/addorder', function(req,res) {
-  order = { 'name': req.body.name, 'number': req.body.order, 'completed': 'yes' }
-  orders.push(order)
+  db.addOrder(url, req.body.name, req.body.number);
   console.log('Added order: ' + req.body.name);
   res.sendFile(__dirname + '/public/orders.html');
 });
+
+app.post('/api/deleteorder', function(req,res) {
+  db.deleteOrder(url, req.body.number);
+  console.log('Deleting order number: ' + req.body.number);
+  res.sendFile(__dirname + '/public/orders.html');
+})
 
 // Server ======================================================================
 var server = app.listen(8081, function() {
