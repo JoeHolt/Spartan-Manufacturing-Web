@@ -50,6 +50,18 @@ exports.deleteOrder = function (url, num) {
   });
 };
 
+// modifyInventory: Modifies the inventory
+exports.modifyInventory = function (url, name, num) {
+  client.connect(url + "SpartanMan", function(err, db) {
+    if (err) {
+      console.error('Error connecting to database');
+      return;
+    }
+    db.collection('products').update({"name":name}, { $set: {stock:num}})
+    db.close;
+  });
+};
+
 // maxAttribute: returns the maximum attribute from a collection
 exports.maxOrderNumber = function (url, callback) {
   var max = 0;

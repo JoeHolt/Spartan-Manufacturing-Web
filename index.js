@@ -65,6 +65,13 @@ app.post('/api/deleteorder', function(req,res) {
   res.sendFile(__dirname + '/public/orders.html');
 })
 
+// api/changeinventory: modifiys object's Inventory
+app.post('/api/changeinventory', function(req,res) {
+  db.modifyInventory(url, req.body.name, req.body.inventory);
+  console.log('Modifying inventory');
+  res.sendFile(__dirname + '/public/inventory.html');
+});
+
 // Server ======================================================================
 var server = app.listen(8081, function() {
   var address = server.address().address

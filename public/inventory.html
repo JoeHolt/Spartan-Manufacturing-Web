@@ -1,10 +1,36 @@
 <!DOCTYPE html>
 <html>
   <head>
+
     <title>Inventory</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="/javascript/core.js"></script>
+
   </head>
-  <body>
+  <body ng-app="SpartanManApp">
     <a href="./index.html">Main Hub</a>
     <h1>Spartan Manufacturing Inventory</h1>
+    <a href="./modifyinventory.html">Modify Inventory</a>
+    <div>
+      <table style="width:100%" ng-controller="dataController">
+        <thead>
+          <th align='left'>Product Name</th>
+          <th align='left'>Price($)</th>
+          <th align='left'>Current Inventory</th>
+          <th align='left'>Pending Orders</th>
+          <th align='left'>ID</th>
+        </thead>
+        <tbody ng-repeat="p in products">
+          <tr>
+            <td>{{ p.name }}</td>
+            <td>{{ p.price }}</td>
+            <td>{{ p.stock }}</td>
+            <td>2</td>
+            <td>{{ p.id }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </body>
 </html>
