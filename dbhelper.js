@@ -20,8 +20,8 @@ exports.getAllObjects = function (url, collection, callback) {
       }
       callback(0, result);
       updatePendingProducts(url)
-      db.close;
     });
+    db.close();
   });
 };
 
@@ -34,7 +34,7 @@ exports.addOrder = function (url, name, number, date, notes) {
     }
     db.collection('orders').insert({ "name": name, "number": number, "completed": 'no', "date": date, "notes": notes });
     updatePendingProducts(url)
-    db.close;
+    db.close();
   })
 }
 
@@ -47,7 +47,7 @@ exports.deleteOrder = function (url, num) {
     }
     db.collection('orders').deleteMany({ "number": Number(num) })
     updatePendingProducts(url)
-    db.close;
+    db.close();
   });
 };
 
@@ -58,8 +58,8 @@ exports.modifyInventory = function (url, name, num) {
       console.error('Error connecting to database');
       return;
     }
-    db.collection('products').update({"name":name}, { $set: {stock:num}})
-    db.close;
+    db.collection('products').update({"name":name}, { $set: {stock:Number(num)}})
+    db.close();
   });
 };
 
@@ -84,6 +84,7 @@ exports.maxOrderNumber = function (url, callback) {
           callback(0, result[0].number)
         }
     });
+    db.close();
   });
 };
 
@@ -95,7 +96,7 @@ exports.markCompleted = function (url, number, completed) {
       return;
     }
     db.collection('orders').update({'number': Number(number)}, {$set: {'completed': completed}});
-    db.close;
+    db.close();
   });
 
 }
@@ -135,7 +136,7 @@ var updatePendingProducts = function(url) {
           }
         })
       }
-      db.close;
     });
+    db.close();
   });
 }
