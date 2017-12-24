@@ -3,7 +3,6 @@ var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 var db = require('./dbhelper');
-var url = "mongodb://localhost:27017/";         // Database url
 
 // Set up ======================================================================
 app.use(express.static('public'));
@@ -14,7 +13,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 // api/getorders: returns all orders in database
 app.get('/api/getorders', function(req,res) {
-  db.getAllObjects(url, "orders", function(err, result) {
+  db.getAllObjects("orders", function(err, result) {
     if (err) {
       console.error("Error recieving parts from database");
       return;
@@ -26,7 +25,7 @@ app.get('/api/getorders', function(req,res) {
 
 // api/getproducts: returns all products in database
 app.get('/api/getproducts', function(req,res) {
-  db.getAllObjects(url, "products", function(err, result) {
+  db.getAllObjects("products", function(err, result) {
     if (err) {
       console.error("Error recieving parts from database");
       return;
@@ -38,7 +37,7 @@ app.get('/api/getproducts', function(req,res) {
 
 // api/addorder: adds an order to the database
 app.post('/api/addorder', function(req,res) {
-  db.maxOrderNumber(url, function(err, result) {
+  db.maxOrderNumber(function(err, result) {
     if (err) {
       console.log(err);
       return;
@@ -52,27 +51,27 @@ app.post('/api/addorder', function(req,res) {
     if (req.body.notes == "") {
       notes = "none";
     }
-    db.addOrder(url, req.body.name, num, date, notes);
+    db.addOrder(req.body.name, num, date, notes);
     res.redirect('http://localhost:8081/'+'orders.html');
   });
 });
 
 // api/deleteorder: deletes an order from the database
 app.post('/api/deleteorder', function(req,res) {
-  db.deleteOrder(url, req.body.number);
+  db.deleteOrder(req.body.number);
   res.redirect('http://localhost:8081/'+'orders.html');
 })
 
 // api/changeinventory: modifiys object's Inventory
 app.post('/api/changeinventory', function(req,res) {
-  db.modifyInventory(url, req.body.name, req.body.inventory);
+  db.modifyInventory(req.body.name, req.body.inventory);
   res.redirect('http://localhost:8081/'+'inventory.html');
 });
 
 // api/completeorder: marks an order as complleted
 app.post('/api/completeorder', function(req,res) {
-  db.markCompleted(url, req.body.number, req.body.completed);
-  res.redirect('http://localhost:8081/'+'inventory.html');
+  db.markCompleted(req.body.number, req.body.completed);
+  res.redirect('http://localhost:8081/'+'orders.html');
 });
 
 // Server ======================================================================
