@@ -11,7 +11,7 @@
   <body ng-app="SpartanManApp">
     <a href="./index.html">Main Hub</a>
     <h1>Spartan Manufacturing Inventory</h1>
-    <a href="./modifyinventory.html">Modify Inventory</a>
+    <!-- <a href="./modifyinventory.html">Modify Inventory</a> -->
     <div>
       <table style="width:100%" ng-controller="dataController">
         <thead>
@@ -28,11 +28,22 @@
             <td>{{ p.price }}</td>
             <td>{{ p.stock }}</td>
             <td>{{ p.pending }}</td>
-            <td>{{ p.stock - 2}}</td>
+            <td>{{ p.stock - p.pending }}</td>
             <td>{{ p.id }}</td>
           </tr>
         </tbody>
       </table>
     </div>
+    <hr>
+    <h3>Modify Inventory</h3>
+    <form action="/api/changeinventory" method="POST" ng-controller="dataController">
+      Product Name:<br>
+      <select name="name">
+        <option ng-repeat="p in products" value="{{ p.name }}">{{ p.name }}</option>
+      </select><br>
+      New Inventory:<br>
+      <input type="text" name="inventory"><br>
+      <input type="submit" value="submit">
+    </form>
   </body>
 </html>

@@ -53,29 +53,26 @@ app.post('/api/addorder', function(req,res) {
       notes = "none";
     }
     db.addOrder(url, req.body.name, num, date, notes);
-    console.log('Added order: ' + req.body.name);
-    res.sendFile(__dirname + '/public/orders.html');
+    res.redirect('http://localhost:8081/'+'orders.html');
   });
 });
 
 // api/deleteorder: deletes an order from the database
 app.post('/api/deleteorder', function(req,res) {
   db.deleteOrder(url, req.body.number);
-  console.log('Deleting order number: ' + req.body.number);
-  res.sendFile(__dirname + '/public/orders.html');
+  res.redirect('http://localhost:8081/'+'orders.html');
 })
 
 // api/changeinventory: modifiys object's Inventory
 app.post('/api/changeinventory', function(req,res) {
   db.modifyInventory(url, req.body.name, req.body.inventory);
-  console.log('Modifying inventory');
-  res.sendFile(__dirname + '/public/inventory.html');
+  res.redirect('http://localhost:8081/'+'inventory.html');
 });
 
 // api/completeorder: marks an order as complleted
 app.post('/api/completeorder', function(req,res) {
   db.markCompleted(url, req.body.number, req.body.completed);
-  res.sendFile(__dirname + '/public/orders.html');
+  res.redirect('http://localhost:8081/'+'inventory.html');
 });
 
 // Server ======================================================================

@@ -18,7 +18,6 @@ exports.getAllObjects = function (url, collection, callback) {
         callback(err);
         return;
       }
-      console.log(result.length + " objects found in " + collection);
       callback(0, result);
       updatePendingProducts(url)
       db.close;
@@ -114,13 +113,15 @@ var updatePendingProducts = function(url) {
       if (err) {
         console.error("Error reading from database");
       }
-      console.log("Length: " + result.length);
       for (var i = 0; i < result.length; i++) {
         var product_name = result[i].name;
         db.collection('products').update({"name": product_name}, { $set: { "pending": 0 }})
         db.collection('orders').find({"name": product_name}).toArray(function(err,res) {
           if (err) {
             console.error("Error reading orders from database");
+          }
+          if (typeof res === "undefined") {
+            return;
           }
           var pending = res.length;
           if (pending > 0) {
