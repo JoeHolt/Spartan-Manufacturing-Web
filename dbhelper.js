@@ -88,6 +88,19 @@ exports.maxOrderNumber = function (url, callback) {
   });
 };
 
+// markCompleted: marks data Completed
+exports.markCompleted = function (url, number, completed) {
+  client.connect(url + "SpartanMan", function(err, db) {
+    if (err) {
+      console.error("Error connecting to database");
+      return;
+    }
+    db.collection('orders').update({'number': Number(number)}, {$set: {'completed': completed}});
+    db.close;
+  });
+
+}
+
 // Other functions =============================================================
 
 // updateProducts: updates the products with how many pending orders there address
@@ -101,6 +114,7 @@ var updatePendingProducts = function(url) {
       if (err) {
         console.error("Error reading from database");
       }
+      console.log("Length: " + result.length);
       for (var i = 0; i < result.length; i++) {
         var product_name = result[i].name;
         db.collection('products').update({"name": product_name}, { $set: { "pending": 0 }})
@@ -110,7 +124,13 @@ var updatePendingProducts = function(url) {
           }
           var pending = res.length;
           if (pending > 0) {
-            db.collection('products').update({"name": res[0].name}, { $set: { "pending": pending }})
+            var n = 0;
+            for (var j = 0; j<res.length; j++) {
+              if (res[j].completed == 'no') {
+                n++;
+              }
+            }
+            db.collection('products').update({"name": res[0].name}, { $set: { "pending": n }})
           }
         })
       }

@@ -72,6 +72,12 @@ app.post('/api/changeinventory', function(req,res) {
   res.sendFile(__dirname + '/public/inventory.html');
 });
 
+// api/completeorder: marks an order as complleted
+app.post('/api/completeorder', function(req,res) {
+  db.markCompleted(url, req.body.number, req.body.completed);
+  res.sendFile(__dirname + '/public/orders.html');
+});
+
 // Server ======================================================================
 var server = app.listen(8081, function() {
   var address = server.address().address

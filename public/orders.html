@@ -12,9 +12,10 @@
     <a href="/index.html">Main hub</a><br>
     <h1>Current Spartan Orders</h1>
     <a href="/addorder.html">Add Order</a>
+    <!-- <br>
+    <a href="/deleteorder.html">Delete Order</a> -->
     <br>
-    <a href="/deleteorder.html">Delete Order</a>
-    <br>
+    <!-- Table -->
     <div>
       <table style="width:100%" ng-controller="dataController">
         <!-- Headings -->
@@ -39,5 +40,21 @@
         </tbody>
       </table>
     </div>
+    <!-- Delete order -->
+    <h3>Delete Order</h2>
+    <form action="/api/deleteorder/" method="POST">
+      Order Number:<br>
+      <input type="text" name="number"><br>
+      <input type="submit" value="submit"><br>
+    </form>
+    <!-- Delete order -->
+    <h3>Complete Order</h2>
+    <form action="/api/completeorder/" method="POST">
+      Order Number:<br>
+      <input type="text" name="number"><br>
+      Completed:<br>
+      <input type="text" name="completed"><br>
+      <input type="submit" value="submit"><br>
+    </form>
   </body>
 </html>
