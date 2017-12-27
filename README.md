@@ -1,8 +1,8 @@
-**Spartan Manufacturing Web**
+# Spartan Manufacturing Web
 
 This is the web app for McFarland High School's Spartan Manufacturing class. It is designed to track orders in a semi efficent matter. It is currently a major work in progress.
 
-**Current Features**
+## Current Features
 
 - Web Site
 	- View orders
@@ -21,6 +21,6 @@ This is the web app for McFarland High School's Spartan Manufacturing class. It 
 		- Modifying inventory
 	- All data is stored externally in MongoDB 
 	
-**TODO**
+## TODO
 - Send response codes with API responces
 - Add some CSS to the site
