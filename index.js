@@ -3,6 +3,7 @@ var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 var db = require('./dbhelper');
+var moment = require('moment');
 
 // Set up ======================================================================
 app.use(express.static('public'));
@@ -42,7 +43,7 @@ app.post('/api/addorder', function(req,res) {
       console.log(err);
       return;
     }
-    var date = (new Date()).toString();
+    var date = moment().format('YYYY-MM-DD HH:m:s');
     var num = Number(req.body.number);
     if (req.body.number == "") {
       num = Number(result) + 1
@@ -70,7 +71,11 @@ app.post('/api/changeinventory', function(req,res) {
 
 // api/completeorder: marks an order as complleted
 app.post('/api/completeorder', function(req,res) {
-  db.markCompleted(req.body.number, req.body.completed);
+  var c = false;
+  if (req.body.completed == 'true' || req.body.completed == true) {
+    c = true;
+  }
+  db.markCompleted(req.body.number, c);
   res.redirect('http://localhost:8081/'+'orders.html');
 });
 

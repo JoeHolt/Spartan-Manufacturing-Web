@@ -28,7 +28,7 @@ exports.getAllObjects = function (collection, callback) {
 
 // addOrder: Adds an order with a certain name and number
 exports.addOrder = function (name, number, date, notes) {
-  db.collection('orders').insert({ "name": name, "number": number, "completed": 'no', "date": date, "notes": notes });
+  db.collection('orders').insert({ "name": name, "number": number, "completed": false, "date": date, "notes": notes });
   updatePendingProducts()
 }
 
@@ -87,7 +87,7 @@ var updatePendingProducts = function() {
           if (pending > 0) {
             var n = 0;
             for (var j = 0; j<res.length; j++) {
-              if (res[j].completed == 'no') {
+              if (res[j].completed == false) {
                 n++;
               }
             }
