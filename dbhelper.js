@@ -8,6 +8,7 @@ client.connect(url + "SpartanMan", function (err, datab){
   if (err) {
     console.error("Error connecting to database");
   }
+  console.log("Connected to database...");
   db = datab
 })
 
