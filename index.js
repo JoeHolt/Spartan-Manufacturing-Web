@@ -53,14 +53,14 @@ app.post('/api/addorder', function(req,res) {
       notes = "none";
     }
     db.addOrder(req.body.name, num, date, notes);
-    res.redirect('http://localhost:8081/'+'orders.html');
+    res.redirect('/orders.html');
   });
 });
 
 // api/deleteorder: deletes an order from the database
 app.post('/api/deleteorder', function(req,res) {
   db.deleteOrder(req.body.number);
-  res.redirect('http://localhost:8081/'+'orders.html');
+  res.redirect('/orders.html');
 })
 
 // api/changeinventory: modifiys object's Inventory
@@ -76,7 +76,7 @@ app.post('/api/completeorder', function(req,res) {
     c = true;
   }
   db.markCompleted(req.body.number, c);
-  res.redirect('http://localhost:8081/'+'orders.html');
+  res.redirect('/orders.html');
 });
 
 // Server ======================================================================
