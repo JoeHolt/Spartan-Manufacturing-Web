@@ -49,6 +49,11 @@ exports.deleteOrder = function (num) {
   updatePendingProducts()
 };
 
+// deleteProduct: Delets a product
+exports.deleteProduct = function (name) {
+  db.collection('products').deleteMany({ "name": name })
+}
+
 // modifyInventory: Modifies the inventory
 exports.modifyInventory = function (name, num) {
   let n = 0;

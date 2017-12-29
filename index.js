@@ -76,8 +76,17 @@ app.post('/api/addproduct', function(req,res) {
 
 // api/deleteorder: deletes an order from the database
 app.post('/api/deleteorder', function(req,res) {
-  db.deleteOrder(req.body.number);
+  var n = 0;
+  if (Number(req.body.number) === parseInt(req.body.number, 10)) {
+    db.deleteOrder(Number(req.body.number));
+  }
   res.redirect('/orders.html');
+})
+
+// api/deleteproduct: deletes an order from the database
+app.post('/api/deleteproduct', function(req,res) {
+  db.deleteProduct(req.body.name);
+  res.redirect('/inventory.html');
 })
 
 // api/changeinventory: modifiys object's Inventory
