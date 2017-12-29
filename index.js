@@ -92,7 +92,7 @@ app.post('/api/deleteproduct', function(req,res) {
 // api/changeinventory: modifiys object's Inventory
 app.post('/api/changeinventory', function(req,res) {
   db.modifyInventory(req.body.name, req.body.inventory);
-  res.redirect('http://localhost:8081/'+'inventory.html');
+  res.redirect('/inventory.html');
 });
 
 // api/completeorder: marks an order as complleted
