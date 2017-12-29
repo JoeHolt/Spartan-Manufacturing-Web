@@ -36,10 +36,10 @@ exports.addOrder = function (name, number, date, notes) {
 // addproduct: adds a new products
 exports.addProduct = function (name, stock) {
   let n = 0;
-  if (stock === parseInt(stock, 10)) {
-    n = stock
+  if (!isNaN(stock)) {
+    n = Number(stock)
   }
-  db.collection('products').insert({ "name":name, "stock": Number(n)})
+  db.collection('products').insert({ "name":name, "stock": n})
   updatePendingProducts()
 }
 
@@ -57,10 +57,10 @@ exports.deleteProduct = function (name) {
 // modifyInventory: Modifies the inventory
 exports.modifyInventory = function (name, num) {
   let n = 0;
-  if (num === parseInt(num, 10)) {
-    n = num
+  if (!isNaN(num)) {
+    n = Number(num)
   }
-  db.collection('products').update({"name":name}, { $set: {stock:Number(n)}})
+  db.collection('products').update({"name":name}, { $set: {stock:n}})
 };
 
 // maxAttribute: returns the maximum attribute from a collection
