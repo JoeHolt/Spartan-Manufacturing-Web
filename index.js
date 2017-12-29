@@ -68,6 +68,12 @@ app.post('/api/addorder', function(req,res) {
   });
 });
 
+// api/addproduct
+app.post('/api/addproduct', function(req,res) {
+  db.addProduct(req.body.name, req.body.stock)
+  res.redirect('/inventory.html')
+})
+
 // api/deleteorder: deletes an order from the database
 app.post('/api/deleteorder', function(req,res) {
   db.deleteOrder(req.body.number);

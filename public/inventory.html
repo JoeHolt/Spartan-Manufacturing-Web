@@ -31,7 +31,17 @@
       </table>
     </div>
     <hr>
-    <h3>Modify Inventory</h3>
+    <!-- Add New product -->
+    <h3>Add New Product</h3>
+    <form action="/api/addproduct" method="POST">
+      Product Name:<br>
+      <input type="text" name="name"><br>
+      Current Inventory:<br>
+      <input type="text" name="stock"></br>
+      <input type="submit" value="submit">
+    </form>
+    <!-- Modift inventory stock -->
+    <h3>Modify Inventory Stock</h3>
     <form action="/api/changeinventory" method="POST" ng-controller="dataController">
       Product Name:<br>
       <select name="name">

@@ -29,7 +29,17 @@ exports.getAllObjects = function (collection, callback) {
 
 // addOrder: Adds an order with a certain name and number
 exports.addOrder = function (name, number, date, notes) {
-  db.collection('orders').insert({ "name": name, "number": number, "status": "Pending start", "date": date, "notes": notes });
+  db.collection('orders').insert({ "name": name, "number": Number(number), "status": "Pending start", "date": date, "notes": notes });
+  updatePendingProducts()
+}
+
+// addproduct: adds a new products
+exports.addProduct = function (name, stock) {
+  let n = 0;
+  if (stock === parseInt(stock, 10)) {
+    n = stock
+  }
+  db.collection('products').insert({ "name":name, "stock": Number(n)})
   updatePendingProducts()
 }
 
@@ -41,7 +51,11 @@ exports.deleteOrder = function (num) {
 
 // modifyInventory: Modifies the inventory
 exports.modifyInventory = function (name, num) {
-  db.collection('products').update({"name":name}, { $set: {stock:Number(num)}})
+  let n = 0;
+  if (num === parseInt(num, 10)) {
+    n = num
+  }
+  db.collection('products').update({"name":name}, { $set: {stock:Number(n)}})
 };
 
 // maxAttribute: returns the maximum attribute from a collection
