@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <title>Orders</title>
+    <!-- META -->
+    <meta charset="utf8">
+    <meta name="description" content="Orders page for McFarland High School's Spartan Manufacturing Site">
+    <meta name="author" content="Joseph Pakes Holt">
+    <!-- CSS -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Javascript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="/javascript/universal.js"></script>
+    <script src="/javascript/core.js"></script>
+
+  </head>
+  <body class="page-body" ng-app="SpartanManApp">
+    <!-- Navigaiton -->
+    <div id="nav-placeholder"></div>
+    <!-- Title -->
+    <div class="page-title">
+      <p class="page-h1">Orders</p>
+      <p class="page-h2">All orders for Spartan Manufacturing</p>
+    </div>
+    <!-- Table -->
+    <div style="padding-top:15px;">
+      <table class="table page-table" ng-controller="dataController">
+        <!-- Headings -->
+        <thead>
+          <tr>
+            <th scope ="col">Order Name</th>
+            <th scope ="col">Order Number</th>
+            <th scope ="col">Notes</th>
+            <th scope ="col">Status</th>
+            <th scope ="col">ID</th>
+            <th scope ="col">Date Added</th>
+            <th scope ="col">Delete</th>
+          </tr>
+        </thead>
+        <!-- Body -->
+        <tbody>
+          <tr ng-repeat="order in orders">
+            <td scope="row">{{ order.name }}</td>
+            <td scope="row">{{ order.number }}</td>
+            <td scope="row">{{ order.notes }}</td>
+            <td scope="row">{{ order.status }}</td>
+            <td scope="row">{{ order.id }}</td>
+            <td scope="row">{{ order.date }}</td>
+            <td>
+              <button type="button" ng-click="delete($index)" class="btn btn-xs btn-danger">
+                <span class="glyphicon glyphicon-trash"></span>
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td scope="row"><input style="border:none" type="text" name="name" placeholder="Product Name..."></td>
+            <td scope="row"><input style="border:none" type="text" name="number" placeholder="Order Number..."></td>
+            <td scope="row"><input style="border:none" type="text" name="notes" placeholder="Notes..."></td>
+            <td scope="row"><input style="border:none" type="text" name="status" placeholder="Status..."></td>
+            <td scope="row">5</td>
+            <td scope="row">2017-12-29 16:17:34</td>
+            <td>
+              <button type="button" style="background-color: #27ae60; color: white;" ng-click="" class="btn btn-xs">
+                <span class="glyphicon glyphicon-plus"></span>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+
+  </body>
+</html>

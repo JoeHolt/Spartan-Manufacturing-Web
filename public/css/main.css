@@ -1,16 +1,9 @@
+/* Overrides */
 * {
   box-sizing: border-box;
 }
 html, body {
   font-family: 'Open Sans', serif;
-}
-article {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 100%;
-  padding: 20px;
 }
 section {
   text-align: center;
@@ -25,6 +18,14 @@ a:hover {
   color: #ecf0f1;
 }
 /* Landing Page */
+.landing-article {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  padding: 20px;
+}
 .glyphs {
   font-size: 100%;
 }
@@ -54,6 +55,45 @@ a:hover {
 .landing-right:hover {
   opacity: 0.6;
 }
+/* Order/inventory pages */
+.page-title {
+  margin-top: 0px;
+  background-color: #27ae60;
+}
+.page-h1 {
+  color: white;
+  font-size: 350%;
+  padding-top: 10px;
+  margin-top: 0px;
+  margin-left: 30px;
+  margin-bottom: 0px;
+  font-weight: bold;
+}
+.page-h2 {
+  color: #ecf0f1;
+  font-size: 200%;
+  margin-left: 30px;
+  margin-top: 0px;
+  padding-bottom: 15px;
+}
+.page-body {
+  background-color: white;
+  height: 100%;
+}
+.page-table {
+  margin-left: 30px;
+}
+/* Navigation */
 .navbar {
   margin-bottom: 0;
+}
+.navbar.navbar-default {
+    border: 0;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+.navbar.navbar-default .navbar-collapse {
+    border: 0;
+    -webkit-box-shadow: none;
+    box-shadow: none;
 }
