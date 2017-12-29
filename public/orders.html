@@ -25,6 +25,7 @@
             <th align="left">Order Number</th>
             <th align="left">Notes</th>
             <th align="left">Status</th>
+            <th align="left">ID</th>
             <th align="left">Date Added</th>
           </tr>
         </thead>
@@ -35,6 +36,7 @@
             <td>{{ order.number }}</td>
             <td>{{ order.notes }}</td>
             <td>{{ order.status }}</td>
+            <td>{{ order.id }}</td>
             <td>{{ order.date }}</td>
           </tr>
         </tbody>
@@ -45,8 +47,8 @@
     <div style="width: 20%;float: left;">
       <h3>Delete Order</h2>
       <form action="/api/deleteorder/" method="POST">
-        Order Number:<br>
-        <input type="text" name="number"><br>
+        Order ID:<br>
+        <input type="text" name="id"><br>
         <input type="submit" value="submit"><br>
       </form>
     </div>
@@ -54,8 +56,8 @@
     <div style="width: 20%; float: left;">
       <h3>Set Status</h2>
       <form action="/api/modifystatus/" method="POST" ng-controller="dataController">
-        Order Number:<br>
-        <input type="text" name="number"><br>
+        Order ID:<br>
+        <input type="text" name="id"><br>
         Status:<br>
         <select name="status">
           <option ng-repeat="s in statusCodes" value="{{ s.name }}">{{ s.name }}</option>
@@ -71,7 +73,7 @@
         <select name="name">
           <option ng-repeat="p in products" value="{{ p.name }}">{{ p.name }}</option>
         </select><br>
-        Custom Order Number:<br>
+        Order Number:<br>
         <input type="text" name="number"><br>
         Notes:<br>
         <input type="text" name="notes"><br>

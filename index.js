@@ -49,7 +49,7 @@ app.get('/api/getstatuscodes', function(req,res) {
 
 // api/addorder: adds an order to the database
 app.post('/api/addorder', function(req,res) {
-  db.maxOrderNumber(function(err, result) {
+  db.maxOrderID(function(err,result) {
     if (err) {
       console.log(err);
       return;
@@ -57,15 +57,15 @@ app.post('/api/addorder', function(req,res) {
     var date = moment().format('YYYY-MM-DD HH:m:s');
     var num = Number(req.body.number);
     if (req.body.number == "") {
-      num = Number(result) + 1
+      num = 0
     }
     var notes = req.body.notes;
     if (req.body.notes == "") {
       notes = "none";
     }
-    db.addOrder(req.body.name, num, date, notes);
+    db.addOrder(req.body.name, num, date, notes, result+1);
     res.redirect('/orders.html');
-  });
+  })
 });
 
 // api/addproduct
@@ -77,8 +77,8 @@ app.post('/api/addproduct', function(req,res) {
 // api/deleteorder: deletes an order from the database
 app.post('/api/deleteorder', function(req,res) {
   var n = 0;
-  if (Number(req.body.number) === parseInt(req.body.number, 10)) {
-    db.deleteOrder(Number(req.body.number));
+  if (Number(req.body.id) === parseInt(req.body.id, 10)) {
+    db.deleteOrder(Number(req.body.id));
   }
   res.redirect('/orders.html');
 })
@@ -97,7 +97,7 @@ app.post('/api/changeinventory', function(req,res) {
 
 // api/completeorder: marks an order as complleted
 app.post('/api/modifystatus', function(req,res) {
-  db.modifyStatus(req.body.number, req.body.status);
+  db.modifyStatus(req.body.id, req.body.status);
   res.redirect('/orders.html');
 });
 

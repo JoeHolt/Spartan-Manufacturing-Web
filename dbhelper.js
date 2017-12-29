@@ -28,8 +28,8 @@ exports.getAllObjects = function (collection, callback) {
 };
 
 // addOrder: Adds an order with a certain name and number
-exports.addOrder = function (name, number, date, notes) {
-  db.collection('orders').insert({ "name": name, "number": Number(number), "status": "Pending start", "date": date, "notes": notes });
+exports.addOrder = function (name, number, date, notes, id) {
+  db.collection('orders').insert({ "name": name, "number": Number(number), "status": "Pending start", "date": date, "notes": notes, id: id });
   updatePendingProducts()
 }
 
@@ -44,8 +44,8 @@ exports.addProduct = function (name, stock) {
 }
 
 // deleteOrder: Deletes an order with a certain number
-exports.deleteOrder = function (num) {
-  db.collection('orders').deleteMany({ "number": Number(num) })
+exports.deleteOrder = function (id) {
+  db.collection('orders').deleteMany({ "id": Number(id) })
   updatePendingProducts()
 };
 
@@ -80,9 +80,27 @@ exports.maxOrderNumber = function (callback) {
   });
 };
 
+// maxAttribute: returns the maximum attribute from a collection
+exports.maxOrderID = function (callback) {
+  var max = 0;
+  db.collection('orders').find({}).sort({id:-1}).limit(1).toArray(function(err,result) {
+    if (err) {
+      console.error("Error finding ID");
+      callback(err)
+      return;
+    }
+    if (result.length == 0) {
+      callback(0, 0);
+    } else {
+      callback(0, result[0].id)
+    }
+  });
+};
+
+
 // markCompleted: marks data Completed
-exports.modifyStatus = function (number, status) {
-    db.collection('orders').update({'number': Number(number)}, {$set: {'status': status}});
+exports.modifyStatus = function (id, status) {
+    db.collection('orders').update({'id': Number(id)}, {$set: {'status': status}});
 }
 
 // Other functions =============================================================
