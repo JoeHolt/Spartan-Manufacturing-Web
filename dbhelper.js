@@ -88,7 +88,7 @@ var updatePendingProducts = function() {
           if (pending > 0) {
             var n = 0;
             for (var j = 0; j<res.length; j++) {
-              if (res[j].completed == false) {
+              if (res[j].status != "Completed") {
                 n++;
               }
             }

@@ -27,7 +27,6 @@ var dataController = function mainController($scope, $http){
     method: 'GET',
     url: '/api/getstatuscodes'
   }).then(function(result) {
-    console.log(result.data);
     $scope.statusCodes = result.data
   }, function(error) {
     console.error(error);
