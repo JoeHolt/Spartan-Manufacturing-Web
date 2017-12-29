@@ -16,20 +16,16 @@
       <table style="width:100%" ng-controller="dataController">
         <thead>
           <th align='left'>Product Name</th>
-          <th align='left'>Price($)</th>
           <th align='left'>Current Inventory</th>
           <th align='left'>Pending Orders</th>
           <th align='left'>Net</th>
-          <th align='left'>ID</th>
         </thead>
         <tbody ng-repeat="p in products">
           <tr>
             <td>{{ p.name }}</td>
-            <td>{{ p.price }}</td>
             <td>{{ p.stock }}</td>
             <td>{{ p.pending }}</td>
             <td>{{ p.stock - p.pending }}</td>
-            <td>{{ p.id }}</td>
           </tr>
         </tbody>
       </table>
