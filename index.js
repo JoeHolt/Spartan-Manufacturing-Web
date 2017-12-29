@@ -58,6 +58,12 @@ app.get('/api/getmaxid', function(req,res) {
   })
 })
 
+// api/getcurrentdate: returns current Date
+app.get('/api/getcurrentdate', function(req,res) {
+  var date = moment().format('YYYY-MM-DD HH:m:s');
+  res.send(JSON.stringify(date));
+})
+
 // api/addorder: adds an order to the database
 app.post('/api/addorder', function(req,res) {
   db.maxOrderID(function(err,result) {

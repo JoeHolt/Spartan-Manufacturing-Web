@@ -42,8 +42,18 @@ var dataController = function mainController($scope, $http){
     method: 'GET',
     url: '/api/getmaxid'
   }).then(function(result) {
-    console.log(result);
     $scope.maxID = Number(result.data)
+  }, function(error) {
+    console.error(error);
+  });
+
+  //Current date
+  $http({
+    method: 'GET',
+    url: '/api/getcurrentdate'
+  }).then(function(result) {
+    console.log(result);
+    $scope.date = result.data.replace(/['"]+/g, '')
   }, function(error) {
     console.error(error);
   });
