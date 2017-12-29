@@ -47,6 +47,17 @@ app.get('/api/getstatuscodes', function(req,res) {
   })
 })
 
+// api/getmaxID: returns the max id
+app.get('/api/getmaxid', function(req,res) {
+  db.maxOrderID(function(err, result) {
+    if (err) {
+      console.error("Error getting max id");
+      return;
+    }
+    res.send(JSON.stringify(result));
+  })
+})
+
 // api/addorder: adds an order to the database
 app.post('/api/addorder', function(req,res) {
   db.maxOrderID(function(err,result) {

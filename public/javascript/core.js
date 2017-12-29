@@ -5,6 +5,7 @@ var orders;
 // Controller ==================================================================
 var dataController = function mainController($scope, $http){
 
+  //Get all orders
   $http({
     method: 'GET',
     url: '/api/getorders'
@@ -15,6 +16,7 @@ var dataController = function mainController($scope, $http){
     console.log(error);
   });
 
+  //Get all products
   $http({
     method: 'GET',
     url: '/api/getproducts'
@@ -25,6 +27,7 @@ var dataController = function mainController($scope, $http){
     console.log(error);
   });
 
+  //Get all status codes
   $http({
     method: 'GET',
     url: '/api/getstatuscodes'
@@ -34,6 +37,18 @@ var dataController = function mainController($scope, $http){
     console.error(error);
   });
 
+  //Max order Number
+  $http({
+    method: 'GET',
+    url: '/api/getmaxid'
+  }).then(function(result) {
+    console.log(result);
+    $scope.maxID = Number(result.data)
+  }, function(error) {
+    console.error(error);
+  });
+
+  //Delete object
   $scope.delete = function(index) {
     let id = orders[index].id
     console.log(id);
@@ -48,7 +63,6 @@ var dataController = function mainController($scope, $http){
     }, function(error) {
       console.error(error);
     });
-
   }
 
 }
