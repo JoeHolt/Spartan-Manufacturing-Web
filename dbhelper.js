@@ -29,7 +29,7 @@ exports.getAllObjects = function (collection, callback) {
 
 // addOrder: Adds an order with a certain name and number
 exports.addOrder = function (name, number, date, notes) {
-  db.collection('orders').insert({ "name": name, "number": number, "completed": false, "date": date, "notes": notes });
+  db.collection('orders').insert({ "name": name, "number": number, "status": "Pending start", "date": date, "notes": notes });
   updatePendingProducts()
 }
 
@@ -62,8 +62,8 @@ exports.maxOrderNumber = function (callback) {
 };
 
 // markCompleted: marks data Completed
-exports.markCompleted = function (number, completed) {
-    db.collection('orders').update({'number': Number(number)}, {$set: {'completed': completed}});
+exports.modifyStatus = function (number, status) {
+    db.collection('orders').update({'number': Number(number)}, {$set: {'status': status}});
 }
 
 // Other functions =============================================================

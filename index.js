@@ -36,6 +36,17 @@ app.get('/api/getproducts', function(req,res) {
   })
 })
 
+// api/getStatusCodes: gets all status getStatusCodes
+app.get('/api/getstatuscodes', function(req,res) {
+  db.getAllObjects("statusCodes", function(err,result) {
+    if (err) {
+      console.error("Error getting codes");
+      return;
+    }
+    res.send(JSON.stringify(result));
+  })
+})
+
 // api/addorder: adds an order to the database
 app.post('/api/addorder', function(req,res) {
   db.maxOrderNumber(function(err, result) {
@@ -70,12 +81,8 @@ app.post('/api/changeinventory', function(req,res) {
 });
 
 // api/completeorder: marks an order as complleted
-app.post('/api/completeorder', function(req,res) {
-  var c = false;
-  if (req.body.completed == 'true' || req.body.completed == true) {
-    c = true;
-  }
-  db.markCompleted(req.body.number, c);
+app.post('/api/modifystatus', function(req,res) {
+  db.modifyStatus(req.body.number, req.body.status);
   res.redirect('/orders.html');
 });
 

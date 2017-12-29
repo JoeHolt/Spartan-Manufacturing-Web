@@ -23,6 +23,16 @@ var dataController = function mainController($scope, $http){
     console.log(error);
   });
 
+  $http({
+    method: 'GET',
+    url: '/api/getstatuscodes'
+  }).then(function(result) {
+    console.log(result.data);
+    $scope.statusCodes = result.data
+  }, function(error) {
+    console.error(error);
+  });
+
 }
 
 display.controller('dataController', dataController);
