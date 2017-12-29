@@ -1,1 +1,59 @@
-
+* {
+  box-sizing: border-box;
+}
+html, body {
+  font-family: 'Open Sans', serif;
+}
+article {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  padding: 20px;
+}
+section {
+  text-align: center;
+}
+div {
+  height: 100%;
+}
+a {
+  color: white;
+}
+a:hover {
+  color: #ecf0f1;
+}
+/* Landing Page */
+.glyphs {
+  font-size: 100%;
+}
+.landing-main {
+  display: table;
+  font-size: 250px;
+  width: 100%;
+  color: white;
+}
+.landing-left {
+  background-color: #2ecc71;
+  position: absolute;
+  left: 0px;
+  width: 50%;
+  opacity: 1.0;
+}
+.landing-left:hover {
+  opacity: 0.6;
+}
+.landing-right {
+  background-color: #3498db;
+  position: absolute;
+  right: 0px;
+  width: 50%;
+  opacity: 1.0;
+}
+.landing-right:hover {
+  opacity: 0.6;
+}
+.navbar {
+  margin-bottom: 0;
+}
