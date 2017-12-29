@@ -56,7 +56,7 @@
       <form action="/api/modifystatus/" method="POST" ng-controller="dataController">
         Order Number:<br>
         <input type="text" name="number"><br>
-        Completed:<br>
+        Status:<br>
         <select name="status">
           <option ng-repeat="s in statusCodes" value="{{ s.name }}">{{ s.name }}</option>
         </select><br>
