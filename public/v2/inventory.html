@@ -38,6 +38,7 @@
             <th scope ="col">Inventory</th>
             <th scope ="col">Pending Orders</th>
             <th scope ="col">Net</th>
+            <th scope="col">Action</th>
           </tr>
         </thead>
         <!-- Body -->
@@ -58,7 +59,7 @@
           <tr class="add-order-text" id="newOrder">
             <td scope="row"><input style="border:none" type="text" name="name" placeholder="Type..."></td>
             <td scope="row"><input style="border:none" type="text" name="inventory" placeholder="Type..."></td>
-            <td scope="row"><input style="border:none" type="text" name="pending" placeholder="Type..."></td>
+            <td scope="row">0</td>
             <td scope="row">0</td>
             <td>
               <button type="button" style="background-color: #27ae60; color: white;" ng-click="addProduct($index)" class="btn btn-xs">
