@@ -63,6 +63,11 @@ exports.modifyInventory = function (name, num) {
   db.collection('products').update({"name":name}, { $set: {stock:n}})
 };
 
+// modiftNotes
+exports.modifyNotes = function (id, notes) {
+  db.collection('orders').update({"id":Number(id)}, {$set:{"notes": notes}})
+}
+
 // maxAttribute: returns the maximum attribute from a collection
 exports.maxOrderNumber = function (callback) {
   var max = 0;

@@ -116,6 +116,12 @@ app.post('/api/changeinventory', function(req,res) {
   res.redirect('/inventory.html');
 });
 
+// api/edit notes: Edits the notes of the productTable
+app.post('/api/modifynotes', function(req,res) {
+  db.modifyNotes(req.body.id, req.body.notes);
+  res.redirect('/orders.html');
+});
+
 // api/completeorder: marks an order as complleted
 app.post('/api/modifystatus', function(req,res) {
   db.modifyStatus(req.body.id, req.body.status);

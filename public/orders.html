@@ -68,7 +68,7 @@
       </form>
     </div>
     <!-- Add Order -->
-    <div style="width: 20%;float: left;">
+    <div style="width: 40%;float: left;">
       <h3>Add Order</h3>
       <form action="/api/addorder/" method="POST" ng-controller="dataController">
         Order Name:<br>
@@ -83,6 +83,16 @@
         <input type="text" name="quantity"><br>
         <input type="submit" value="submit">
       </form>
+      <!-- Changes notes -->
+      <div style="width: 20%;float: right;">
+        <h3>Changes Notes</h3>
+        <form action="/api/modifynotes" method="POST" ng-controller="dataController">
+          Order ID:<br>
+          <input type="text" name="id"><br>
+          Notes:<br>
+          <input type="text" name="notes"><br>
+          <input type="submit" value="submit">
+        </form>
     </div>
   </body>
 </html>
