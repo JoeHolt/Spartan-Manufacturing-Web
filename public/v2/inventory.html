@@ -26,7 +26,7 @@
     <!-- Title -->
     <div class="page-title" style="background-color:#3498db">
       <p class="page-h1">Inventory</p>
-      <p class="page-h2">Summary of all pending orders</p>
+      <p class="page-h2">Summary of all pending orders.</p>
     </div>
     <!-- Table -->
     <div style="padding-top:15px;">
@@ -35,7 +35,7 @@
         <thead>
           <tr>
             <th scope ="col">Name</th>
-            <th scope ="col">Inventory</th>
+            <th scope ="col">Inventory (E)</th>
             <th scope ="col">Pending Orders</th>
             <th scope ="col">Net</th>
             <th scope="col">Action</th>
@@ -46,10 +46,13 @@
           <!-- Current orders -->
           <tr ng-repeat="p in products">
             <td scope="row">{{ p.name }}</td>
-            <td scope="row">{{ p.stock }}</td>
+            <td scope="row"><input style="border:none" type="text" name="stock" value="{{ p.stock }}" placeholder="Number..."></td>
             <td scope="row">{{ p.pending }}</td>
             <td scope="row">{{ p.stock-p.pending }}</td>
             <td>
+              <button type="button" style="background-color: #8e44ad; color: white;" ng-click="updateProduct($index)" class="btn btn-xs">
+                <span class="glyphicon glyphicon-edit"></span>
+              </button>
               <button type="button" ng-click="deleteProduct($index)" class="btn btn-xs btn-danger">
                 <span class="glyphicon glyphicon-trash"></span>
               </button>
@@ -64,6 +67,9 @@
             <td>
               <button type="button" style="background-color: #27ae60; color: white;" ng-click="addProduct($index)" class="btn btn-xs">
                 <span class="glyphicon glyphicon-plus"></span>
+              </button>
+              <button type="button" ng-click="clearNewOrder()" class="btn btn-xs btn-danger">
+                <span class="glyphicon glyphicon-trash"></span>
               </button>
             </td>
           </tr>

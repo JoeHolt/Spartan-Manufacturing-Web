@@ -85,6 +85,20 @@ var dataController = function mainController($scope, $http){
     });
   }
 
+  $scope.updateProduct = function(index) {
+    let values = getProductCellValues(index + 1); // 0: name, 1: inventory
+    $http({
+      method: 'POST',
+      url: '/api/modifyfullproduct',
+      data: $.param({"name": values[0], "stock": values[1]}),
+      headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+    }).then(function(result) {
+      location.reload();
+    }, function(error) {
+      console.error(error);
+    });
+  }
+
   //Delete product
   $scope.deleteProduct = function(index) {
     let name = products[index].name;
@@ -110,7 +124,8 @@ var dataController = function mainController($scope, $http){
   }
 
   $scope.addProduct = function(index) {
-    let values = getProductCellValues()
+    let table = document.getElementById('productTable');
+    let values = getProductCellValues(table.rows.length - 1); // 0: name, 1: inventory
     let name = values[0]
     let stock = values[1]
     $http({
@@ -180,15 +195,15 @@ var dataController = function mainController($scope, $http){
   }
 
   // Gets the value for a all cells in the add product row
-  function getProductCellValues() {
+  function getProductCellValues(index) {
     var table = document.getElementById('productTable');
     var values = [];
-    for (var c = 0, r = table.rows.length - 1, m = table.rows[r].cells.length; c < m; c++) {
-      var v = table.rows[table.rows.length-1].cells[c].childNodes[0].value
+    for (var c = 0, m = table.rows[index].cells.length; c < m; c++) {
+      var v = table.rows[index].cells[c].childNodes[0].value
       if (v == null) {
-        v = table.rows[table.rows.length-1].cells[c].innerHTML;
+        v = table.rows[index].cells[c].innerHTML;
       }
-      if (c != table.rows[r].cells.length-1) {
+      if (c != table.rows[index].cells.length-1) {
         values.push(v);
       }
     }
