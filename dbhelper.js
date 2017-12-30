@@ -28,8 +28,8 @@ exports.getAllObjects = function (collection, callback) {
 };
 
 // addOrder: Adds an order with a certain name and number
-exports.addOrder = function (name, number, date, notes, id) {
-  db.collection('orders').insert({ "name": name, "number": Number(number), "status": "Pending start", "date": date, "notes": notes, id: id });
+exports.addOrder = function (name, number, date, notes, id, q) {
+  db.collection('orders').insert({ "name": name, "number": Number(number), "status": "Pending start", "date": date, "notes": notes, id: id, "quantity": q });
   updatePendingProducts()
 }
 
@@ -122,11 +122,12 @@ var updatePendingProducts = function() {
             return;
           }
           var pending = res.length;
+          //Pending is the order that have that name
           if (pending > 0) {
             var n = 0;
-            for (var j = 0; j<res.length; j++) {
+            for (var j = 0; j<pending;j++) {
               if (res[j].status != "Completed") {
-                n++;
+                n += Number(res[j].quantity);
               }
             }
             db.collection('products').update({"name": res[0].name}, { $set: { "pending": n }})

@@ -76,11 +76,15 @@ app.post('/api/addorder', function(req,res) {
     if (req.body.number == "") {
       num = 0
     }
+    var q = Number(req.body.quantity);
+    if (req.body.quantity == "") {
+      q = 1;
+    }
     var notes = req.body.notes;
     if (req.body.notes == "") {
       notes = "none";
     }
-    db.addOrder(req.body.name, num, date, notes, result+1);
+    db.addOrder(req.body.name, num, date, notes, result+1, q);
     res.redirect('/orders.html');
   })
 });
