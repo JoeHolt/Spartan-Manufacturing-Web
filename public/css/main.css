@@ -65,14 +65,14 @@ a:hover {
   font-size: 350%;
   padding-top: 10px;
   margin-top: 0px;
-  margin-left: 30px;
+  margin-left: 2vw;
   margin-bottom: 0px;
   font-weight: bold;
 }
 .page-h2 {
   color: #ecf0f1;
   font-size: 200%;
-  margin-left: 30px;
+  margin-left: 2vw;
   margin-top: 0px;
   padding-bottom: 15px;
 }
@@ -81,14 +81,11 @@ a:hover {
   height: 100%;
 }
 .page-table {
-  margin-left: 30px;
-  margin-right: -30px;
+  margin-left: 2vw;
+  width: 98vw;
 }
 .add-order-text {
   color: darkgray;
-}
-.dropdown-toggle {
-
 }
 /* Navigation */
 .navbar {

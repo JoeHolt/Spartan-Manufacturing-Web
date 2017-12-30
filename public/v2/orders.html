@@ -28,7 +28,7 @@
       <p class="page-h2">All orders for Spartan Manufacturing</p>
     </div>
     <!-- Table -->
-    <div style="padding-top:15px;">
+    <div style="padding-top:15px; max-width:100%;">
       <table class="table page-table" ng-controller="dataController" id="orderTable">
         <!-- Headings -->
         <thead>
@@ -48,13 +48,16 @@
           <!-- Current orders -->
           <tr ng-repeat="order in orders">
             <td scope="row">{{ order.name }}</td>
-            <td scope="row">{{ order.number }}</td>
-            <td scope="row">{{ order.notes }}</td>
+            <td scope="row"><input style="border:none" type="text" name="number" value="{{ order.number }}" placeholder="Number..."></td>
+            <td scope="row"><input style="border:none" type="text" name="number" value="{{ order.notes }}" placeholder="Notes..."></td>
             <td scope="row">{{ order.status }}</td>
-            <td scope="row">{{ order.quantity }}</td>
+            <td scope="row"><input style="border:none" type="text" name="number" value="{{ order.quantity }}" placeholder="Quantity..."></td>
             <td scope="row">{{ order.id }}</td>
             <td scope="row">{{ order.date }}</td>
             <td>
+              <button type="button" style="background-color: #8e44ad; color: white;" ng-click="updateOrder($index)" class="btn btn-xs">
+                <span class="glyphicon glyphicon-edit"></span>
+              </button>
               <button type="button" ng-click="deleteOrder($index)" class="btn btn-xs btn-danger">
                 <span class="glyphicon glyphicon-trash"></span>
               </button>
@@ -75,8 +78,11 @@
             <td scope="row">{{ maxID + 1 }}</td>
             <td scope="row">{{ date }}</td>
             <td>
-              <button type="button" style="background-color: #27ae60; color: white;" ng-click="addOrder($index)" class="btn btn-xs">
+              <button type="button" style="background-color: #27ae60; color: white;" ng-click="addOrder()" class="btn btn-xs">
                 <span class="glyphicon glyphicon-plus"></span>
+              </button>
+              <button type="button" ng-click="clearNewOrder()" class="btn btn-xs btn-danger">
+                <span class="glyphicon glyphicon-trash"></span>
               </button>
             </td>
           </tr>

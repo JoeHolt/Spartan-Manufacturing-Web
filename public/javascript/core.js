@@ -6,6 +6,8 @@ var products;
 // Controller ==================================================================
 var dataController = function mainController($scope, $http){
 
+  // ANGULAR METHODS ===========================================================
+
   //Get all orders
   $http({
     method: 'GET',
@@ -59,15 +61,20 @@ var dataController = function mainController($scope, $http){
     console.error(error);
   });
 
+  // Scope Functions ===========================================================
+
   //Delete object
   $scope.deleteOrder = function(index) {
-    let id = orders[index].id
-    console.log(id);
+    let id = orders[index].id;
+    deleteOrder(id);
+  }
 
+  $scope.updateOrder = function(index) {
+    let values = getOrderCellValues(index + 1); // 0: name, 1: number, 2: notes, 4: quantity, 5: id
     $http({
       method: 'POST',
-      url: '/api/deleteorder',
-      data: $.param({ 'id': id }),
+      url: '/api/modifyfullorder',
+      data: $.param({"name": values[0], "id": values[5], "number": values[1], "notes": values[2], "quantity": values[4] }),
       headers: {'Content-Type': 'application/x-www-form-urlencoded'}
     }).then(function(result) {
       location.reload();
@@ -92,29 +99,16 @@ var dataController = function mainController($scope, $http){
   }
 
   //Add orders
-  $scope.addOrder = function(index) {
-    let values = GetOrderCellValues();
+  $scope.addOrder = function() {
+    let table = document.getElementById('orderTable');
+    let values = getOrderCellValues(table.rows.length - 1); // 0: name, 1: number, 2: notes, 3: quantity
     let name = values[0];
-    let num = values[1];
-    let notes = values[2];
-    let quantity = values[4];
-    if (name == "") {
-      return;
-    }
-    $http({
-      method: 'POST',
-      url: '/api/addorder',
-      data: $.param({"name": name, "number": num, "notes": notes, "quantity": quantity }),
-      headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-    }).then(function(result) {
-      location.reload();
-    }, function(error) {
-      console.error(error);
-    });
+    if (name == "") return;
+    addOrder(name, values[1], values[2], values[4]);
   }
 
   $scope.addProduct = function(index) {
-    let values = GetProductCellValues()
+    let values = getProductCellValues()
     let name = values[0]
     let stock = values[1]
     $http({
@@ -129,7 +123,42 @@ var dataController = function mainController($scope, $http){
     });
   }
 
-  function GetProductCellValues() {
+  $scope.clearNewOrder = function() {
+    location.reload();
+  }
+
+  // User functions ============================================================
+
+  // deletes order
+  function deleteOrder(id) {
+    $http({
+      method: 'POST',
+      url: '/api/deleteorder',
+      data: $.param({ 'id': id }),
+      headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+    }).then(function(result) {
+      location.reload();
+    }, function(error) {
+      console.error(error);
+    });
+  }
+
+  // adds order
+  function addOrder(name, num, notes, quantity) {
+    $http({
+      method: 'POST',
+      url: '/api/addorder',
+      data: $.param({"name": name, "number": num, "notes": notes, "quantity": quantity }),
+      headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+    }).then(function(result) {
+      location.reload();
+    }, function(error) {
+      console.error(error);
+    });
+  }
+
+  // Gets the value for a all cells in the add product row
+  function getProductCellValues() {
     var table = document.getElementById('productTable');
     var values = [];
     for (var c = 0, r = table.rows.length - 1, m = table.rows[r].cells.length; c < m; c++) {
@@ -144,18 +173,19 @@ var dataController = function mainController($scope, $http){
     return values;
   }
 
-  function GetOrderCellValues() {
+  // Get the value for all cells in the index row
+  function getOrderCellValues(index) {
     var table = document.getElementById('orderTable');
     var values = [];
-    for (var c = 0, r = table.rows.length - 1, m = table.rows[r].cells.length; c < m; c++) {
-      var v = table.rows[table.rows.length-1].cells[c].childNodes[0].value
+    for (var c = 0, m = table.rows[index].cells.length; c < m; c++) {
+      var v = table.rows[index].cells[c].childNodes[0].value
       if (v == null) {
-        v = table.rows[table.rows.length-1].cells[c].innerHTML;
+        v = table.rows[index].cells[c].innerHTML;
       }
-      if (c == 0) {
+      if (c == 0 && index == table.rows.length-1) {
         var e = document.getElementById("nameDropdown");
         values.push(e.options[e.selectedIndex].value)
-      } else if (c != table.rows[r].cells.length-1) {
+      } else if (c != table.rows[index].cells.length-1) {
         values.push(v);
       }
     }

@@ -141,6 +141,12 @@ app.post('/api/modifystatus', function(req,res) {
   res.redirect('/orders.html');
 });
 
+// api/modifyfullorder
+app.post('/api/modifyfullorder', function(req,res) {
+  db.modifyObject("orders", {"id": Number(req.body.id)}, {"name": req.body.name, "number": Number(req.body.number), "notes": req.body.notes, "quantity": req.body.quantity});
+  res.redirect('/orders.html');
+})
+
 // Server ======================================================================
 var server = app.listen(8081, function() {
   var address = server.address().address
