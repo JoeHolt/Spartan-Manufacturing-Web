@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <title>Inventory</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="/javascript/core.js"></script>
+
+  </head>
+  <body ng-app="SpartanManApp">
+    <a href="/old/index.html">Main Hub</a>
+    <h1>Spartan Manufacturing Inventory</h1>
+    <!-- <a href="./modifyinventory.html">Modify Inventory</a> -->
+    <div>
+      <table style="width:100%" ng-controller="dataController">
+        <thead>
+          <th align='left'>Product Name</th>
+          <th align='left'>Current Inventory</th>
+          <th align='left'>Pending Orders</th>
+          <th align='left'>Net</th>
+        </thead>
+        <tbody ng-repeat="p in products">
+          <tr>
+            <td>{{ p.name }}</td>
+            <td>{{ p.stock }}</td>
+            <td>{{ p.pending }}</td>
+            <td>{{ p.stock - p.pending }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <hr>
+    <!-- Add New product -->
+    <div style="width: 20%;float: left;">
+      <h3>Add New Product</h3>
+      <form action="/api/addproduct" method="POST">
+        Product Name:<br>
+        <input type="text" name="name"><br>
+        Current Inventory:<br>
+        <input type="text" name="stock"></br>
+        <input type="submit" value="submit">
+      </form>
+    </div>
+    <!-- Modift inventory stock -->
+    <div style="width: 20%;float: left;">
+      <h3>Modify Inventory Stock</h3>
+      <form action="/api/modifyinventory" method="POST" ng-controller="dataController">
+        Product Name:<br>
+        <select name="name">
+          <option ng-repeat="p in products" value="{{ p.name }}">{{ p.name }}</option>
+        </select><br>
+        New Inventory:<br>
+        <input type="text" name="inventory"><br>
+        <input type="submit" value="submit">
+      </form>
+    </div>
+    <!-- Delete Product -->
+    <div style="width: 20%;float: left;">
+      <h3>Delete Product</h3>
+      <form action="/api/deleteproduct" method="POST" ng-controller="dataController">
+        Product Name:<br>
+        <select name="name">
+          <option ng-repeat="p in products" value="{{ p.name }}">{{ p.name }}</option>
+        </select><br>
+        <input type="submit" value="submit">
+      </form>
+    </div>
+  </body>
+</html>

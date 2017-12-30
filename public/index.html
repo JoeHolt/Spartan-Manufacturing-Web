@@ -1,20 +1,44 @@
+<!DOCTYPE html>
 <html>
   <head>
+
     <title>Spartan Manufacturing</title>
+
+    <!-- META -->
+    <meta charset="utf8">
+    <meta name="description" content="McFarland High School's Spartan Manufacturing Website">
+    <meta name="author" content="Joseph Pakes Holt">
+    <!-- CSS -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Javascript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery.min.js"></script>
+    <script src="/javascript/universal.js"></script>
+
   </head>
   <body>
-    <h1>Spartan Manufacturing Hub</h1>
-    <h2>With UI</h2>
-    <a href="./v2/index.html">New User Interface</a>
-    <p>NOTE: This new UI should be at full feature pariety with the old version of the site. Please use this version and let me (Joe Holt) know if you hava any issues.</p>
-    <p>To modify orders/products on this site just click on the values you want to edit then clikc the purple save button. Values with an (E) next to their names are editable</p>
-    <p>This version of the site is majorly done excluding some UI tweaks of elements that I need to redo with a custom look.</p>
-    <h2>Old Version</h2>
-    <h3>Orders</h3>
-    <p>This contains all orders that have been places</p>
-    <a href="./orders.html">Orders</a><br>
-    <h3>Inventory</h3>
-    <p>This contains a list of all products being sold and their current inventory/net</p>
-    <a href="./inventory.html">Inventory</a>
+    <!-- Navigation bar -->
+    <div id="nav-placeholder"></div>
+    <!-- Main Page -->
+    <section class="landing-main">
+      <a href="/orders.html">
+        <div class="landing-left">
+          <article class="landing-article">
+            <h1>Orders</h1>
+            <!-- <br>
+            <span class="glyphicon glyphs">&#xe032;</span> -->
+          </article>
+        </div>
+      </a>
+      <a href="/inventory.html">
+        <div class="landing-right">
+          <article class="landing-article">
+            <h1>Inventory</h1>
+          </article>
+        </div>
+      </a>
+    </section>
   </body>
 </html>

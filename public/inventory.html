@@ -3,68 +3,80 @@
   <head>
 
     <title>Inventory</title>
-
+    <!-- META -->
+    <meta charset="utf8">
+    <meta name="description" content="Orders page for McFarland High School's Spartan Manufacturing Site">
+    <meta name="author" content="Joseph Pakes Holt">
+    <!-- CSS -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Javascript -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="/javascript/universal.js"></script>
     <script src="/javascript/core.js"></script>
 
+
   </head>
-  <body ng-app="SpartanManApp">
-    <a href="./index.html">Main Hub</a>
-    <h1>Spartan Manufacturing Inventory</h1>
-    <!-- <a href="./modifyinventory.html">Modify Inventory</a> -->
-    <div>
-      <table style="width:100%" ng-controller="dataController">
+  <body class="page-body" ng-app="SpartanManApp">
+    <!-- Navigaiton -->
+    <div id="nav-placeholder"></div>
+    <!-- Title -->
+    <div class="page-title" style="background-color:#3498db">
+      <p class="page-h1">Inventory</p>
+      <p class="page-h2">Summary of all pending orders.</p>
+    </div>
+    <!-- Table -->
+    <div style="padding-top:15px;">
+      <table class="table page-table" ng-controller="dataController" id="productTable">
+        <!-- Headings -->
         <thead>
-          <th align='left'>Product Name</th>
-          <th align='left'>Current Inventory</th>
-          <th align='left'>Pending Orders</th>
-          <th align='left'>Net</th>
-        </thead>
-        <tbody ng-repeat="p in products">
           <tr>
-            <td>{{ p.name }}</td>
-            <td>{{ p.stock }}</td>
-            <td>{{ p.pending }}</td>
-            <td>{{ p.stock - p.pending }}</td>
+            <th scope ="col">Name</th>
+            <th scope ="col">Inventory (E)</th>
+            <th scope ="col">Pending Orders</th>
+            <th scope ="col">Net</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <!-- Body -->
+        <tbody>
+          <!-- Current orders -->
+          <tr ng-repeat="p in products">
+            <td scope="row">{{ p.name }}</td>
+            <td scope="row"><input style="border:none" type="text" name="stock" value="{{ p.stock }}" placeholder="Number..."></td>
+            <td scope="row">{{ p.pending }}</td>
+            <td scope="row">{{ p.stock-p.pending }}</td>
+            <td>
+              <button type="button" style="background-color: #8e44ad; color: white;" ng-click="updateProduct($index)" class="btn btn-xs">
+                <span class="glyphicon glyphicon-edit"></span>
+              </button>
+              <button type="button" ng-click="deleteProduct($index)" class="btn btn-xs btn-danger">
+                <span class="glyphicon glyphicon-trash"></span>
+              </button>
+            </td>
+          </tr>
+          <!-- Add new order -->
+          <tr class="add-order-text" id="newOrder">
+            <td scope="row"><input style="border:none" type="text" name="name" placeholder="Type..."></td>
+            <td scope="row"><input style="border:none" type="text" name="inventory" placeholder="Type..."></td>
+            <td scope="row">0</td>
+            <td scope="row">0</td>
+            <td>
+              <button type="button" style="background-color: #27ae60; color: white;" ng-click="addProduct($index)" class="btn btn-xs">
+                <span class="glyphicon glyphicon-plus"></span>
+              </button>
+              <button type="button" ng-click="clearNewOrder()" class="btn btn-xs btn-danger">
+                <span class="glyphicon glyphicon-trash"></span>
+              </button>
+            </td>
           </tr>
         </tbody>
       </table>
     </div>
-    <hr>
-    <!-- Add New product -->
-    <div style="width: 20%;float: left;">
-      <h3>Add New Product</h3>
-      <form action="/api/addproduct" method="POST">
-        Product Name:<br>
-        <input type="text" name="name"><br>
-        Current Inventory:<br>
-        <input type="text" name="stock"></br>
-        <input type="submit" value="submit">
-      </form>
-    </div>
-    <!-- Modift inventory stock -->
-    <div style="width: 20%;float: left;">
-      <h3>Modify Inventory Stock</h3>
-      <form action="/api/modifyinventory" method="POST" ng-controller="dataController">
-        Product Name:<br>
-        <select name="name">
-          <option ng-repeat="p in products" value="{{ p.name }}">{{ p.name }}</option>
-        </select><br>
-        New Inventory:<br>
-        <input type="text" name="inventory"><br>
-        <input type="submit" value="submit">
-      </form>
-    </div>
-    <!-- Delete Product -->
-    <div style="width: 20%;float: left;">
-      <h3>Delete Product</h3>
-      <form action="/api/deleteproduct" method="POST" ng-controller="dataController">
-        Product Name:<br>
-        <select name="name">
-          <option ng-repeat="p in products" value="{{ p.name }}">{{ p.name }}</option>
-        </select><br>
-        <input type="submit" value="submit">
-      </form>
-    </div>
+
+
   </body>
 </html>
