@@ -13,10 +13,16 @@
     <link rel="stylesheet" href="/css/main.css">
     <!-- Javascript -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script src="/javascript/universal.js"></script>
     <script src="/javascript/core.js"></script>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
 
   </head>
   <body class="page-body" ng-app="SpartanManApp">
@@ -61,8 +67,8 @@
           <!-- Add new order -->
           <tr class="add-order-text" id="newOrder">
             <td scope="row">
-              <select class="dropdown" name="drop-down" id="nameDropdown">
-                <option ng-repeat="p in products" value="{{ p.name }}">{{ p.name }}</option>
+              <select class="form-group" id="nameDropdown">
+                <option ng-repeat="p in products">{{ p.name }}</option>
               </select>
             </td>
             <!-- <td scope="row"><input style="border:none" type="text" name="name" placeholder="Type..."></td> -->
