@@ -82,12 +82,13 @@ a:hover {
 }
 .page-table {
   margin-left: 30px;
+  margin-right: -30px;
 }
 .add-order-text {
   color: darkgray;
 }
 .dropdown-toggle {
-  
+
 }
 /* Navigation */
 .navbar {
