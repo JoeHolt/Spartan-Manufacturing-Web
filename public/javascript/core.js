@@ -1,6 +1,7 @@
 // Variables ===================================================================
 var display = angular.module('SpartanManApp', []);
 var orders;
+var products;
 
 // Controller ==================================================================
 var dataController = function mainController($scope, $http){
@@ -23,6 +24,7 @@ var dataController = function mainController($scope, $http){
   }).then(function(result) {
     // console.log(result.data);
     $scope.products = result.data
+    products = result.data
   }, function(error) {
     console.log(error);
   });
@@ -58,7 +60,7 @@ var dataController = function mainController($scope, $http){
   });
 
   //Delete object
-  $scope.delete = function(index) {
+  $scope.deleteOrder = function(index) {
     let id = orders[index].id
     console.log(id);
 
@@ -74,9 +76,24 @@ var dataController = function mainController($scope, $http){
     });
   }
 
+  //Delete product
+  $scope.deleteProduct = function(index) {
+    let name = products[index].name;
+    $http({
+      method: 'POST',
+      url: '/api/deleteProduct',
+      data: $.param({ 'name': name }),
+      headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+    }).then(function(result) {
+      location.reload();
+    }, function(error) {
+      console.error(error);
+    });
+  }
+
   //Add orders
   $scope.addOrder = function(index) {
-    let values = GetCellValues();
+    let values = GetOrderCellValues();
     let name = values[0];
     let num = values[1];
     let notes = values[2];
@@ -95,7 +112,38 @@ var dataController = function mainController($scope, $http){
     });
   }
 
-  function GetCellValues() {
+  $scope.addProduct = function(index) {
+    let values = GetProductCellValues()
+    let name = values[0]
+    let stock = values[1]
+    $http({
+      method: 'POST',
+      url: '/api/addproduct',
+      data: $.param({"name": name, "stock": stock }),
+      headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+    }).then(function(result) {
+      location.reload();
+    }, function(error) {
+      console.error(error);
+    });
+  }
+
+  function GetProductCellValues() {
+    var table = document.getElementById('productTable');
+    var values = [];
+    for (var c = 0, r = table.rows.length - 1, m = table.rows[r].cells.length; c < m; c++) {
+      var v = table.rows[table.rows.length-1].cells[c].childNodes[0].value
+      if (v == null) {
+        v = table.rows[table.rows.length-1].cells[c].innerHTML;
+      }
+      if (c != table.rows[r].cells.length-1) {
+        values.push(v);
+      }
+    }
+    return values;
+  }
+
+  function GetOrderCellValues() {
     var table = document.getElementById('orderTable');
     var values = [];
     for (var c = 0, r = table.rows.length - 1, m = table.rows[r].cells.length; c < m; c++) {
