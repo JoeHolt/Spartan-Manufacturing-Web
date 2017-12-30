@@ -45,7 +45,7 @@
     <!-- Modift inventory stock -->
     <div style="width: 20%;float: left;">
       <h3>Modify Inventory Stock</h3>
-      <form action="/api/changeinventory" method="POST" ng-controller="dataController">
+      <form action="/api/modifyinventory" method="POST" ng-controller="dataController">
         Product Name:<br>
         <select name="name">
           <option ng-repeat="p in products" value="{{ p.name }}">{{ p.name }}</option>

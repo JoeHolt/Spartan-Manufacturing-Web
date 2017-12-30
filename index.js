@@ -49,7 +49,7 @@ app.get('/api/getstatuscodes', function(req,res) {
 
 // api/getmaxID: returns the max id
 app.get('/api/getmaxid', function(req,res) {
-  db.maxOrderID(function(err, result) {
+  db.getMaxOrderIntAtribute("id", function(err, result) {
     if (err) {
       console.error("Error getting max id");
       return;
@@ -66,7 +66,7 @@ app.get('/api/getcurrentdate', function(req,res) {
 
 // api/addorder: adds an order to the database
 app.post('/api/addorder', function(req,res) {
-  db.maxOrderID(function(err,result) {
+  db.getMaxOrderIntAtribute("id", function(err,result) {
     if (err) {
       console.log(err);
       return;
@@ -111,26 +111,34 @@ app.post('/api/deleteproduct', function(req,res) {
 })
 
 // api/changeinventory: modifiys object's Inventory
-app.post('/api/changeinventory', function(req,res) {
-  db.modifyInventory(req.body.name, req.body.inventory);
+app.post('/api/modifyinventory', function(req,res) {
+  if (!isNaN(req.body.inventory)) {
+    db.modifyObject("products", { "name":req.body.name }, { "stock": Number(req.body.inventory) })
+  }
   res.redirect('/inventory.html');
 });
 
 // api/edit notes: Edits the notes of the productTable
 app.post('/api/modifynotes', function(req,res) {
-  db.modifyNotes(req.body.id, req.body.notes);
+  if (!isNaN(req.body.id)) {
+      db.modifyObject("orders", { "id":Number(req.body.id) }, {"notes": req.body.notes})
+  }
   res.redirect('/orders.html');
 });
 
 // api/modifyquantity: Edits the notes of the productTable
 app.post('/api/modifyquantity', function(req,res) {
-  db.modifyQuantity(req.body.id, req.body.quantity);
+  if (!isNaN(req.body.id) && !isNaN(req.body.quantity)) {
+    db.modifyObject("orders", {"id": Number(req.body.id)}, {"quantity": Number(req.body.quantity)});
+  }
   res.redirect('/orders.html');
 });
 
 // api/completeorder: marks an order as complleted
 app.post('/api/modifystatus', function(req,res) {
-  db.modifyStatus(req.body.id, req.body.status);
+  if (!isNaN(req.body.id)) {
+    db.modifyObject("orders", {"id": Number(req.body.id)}, {"status": req.body.status});
+  }
   res.redirect('/orders.html');
 });
 

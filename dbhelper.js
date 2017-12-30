@@ -54,66 +54,28 @@ exports.deleteProduct = function (name) {
   db.collection('products').deleteMany({ "name": name })
 }
 
-// modifyInventory: Modifies the inventory
-exports.modifyInventory = function (name, num) {
-  let n = 0;
-  if (!isNaN(num)) {
-    n = Number(num)
-  }
-  db.collection('products').update({"name":name}, { $set: {stock:n}})
-};
-
-// modiftNotes
-exports.modifyNotes = function (id, notes) {
-  db.collection('orders').update({"id":Number(id)}, {$set:{"notes": notes}})
-}
-
-// maxAttribute: returns the maximum attribute from a collection
-exports.maxOrderNumber = function (callback) {
+// getMaxOrderIntAtribute: returns the max integer attribute from order
+exports.getMaxOrderIntAtribute = function (atribute, callback) {
   var max = 0;
-  db.collection('orders').find({}).sort({number:-1}).limit(1).toArray(function(err,result) {
+  var a = {}
+  a[atribute] = -1;
+  db.collection('orders').find({}).sort(a).limit(1).toArray(function(err,result) {
     if (err) {
-      console.error("Error finding ID");
+      console.error("Error finding " + atribute);
       callback(err)
       return;
     }
     if (result.length == 0) {
       callback(0, 0);
     } else {
-      callback(0, result[0].number)
+      callback(0, result[0][atribute])
     }
   });
-};
-
-// maxAttribute: returns the maximum attribute from a collection
-exports.maxOrderID = function (callback) {
-  var max = 0;
-  db.collection('orders').find({}).sort({id:-1}).limit(1).toArray(function(err,result) {
-    if (err) {
-      console.error("Error finding ID");
-      callback(err)
-      return;
-    }
-    if (result.length == 0) {
-      callback(0, 0);
-    } else {
-      callback(0, result[0].id)
-    }
-  });
-};
-
-
-// markCompleted: marks data Completed
-exports.modifyStatus = function (id, status) {
-    db.collection('orders').update({'id': Number(id)}, {$set: {'status': status}});
 }
 
-// modifyQuantity: change quantity
-exports.modifyQuantity = function (id, quantity) {
-  if (id == parseInt(id, 10)) {
-    db.collection('orders').update({'id': Number(id)}, {$set: {'quantity': quantity}});
-  }
-
+// modifyObject: modifies an object
+exports.modifyObject = function (collection, matchCase, changeCase) {
+  db.collection(collection).update(matchCase, { $set: changeCase })
 }
 
 
