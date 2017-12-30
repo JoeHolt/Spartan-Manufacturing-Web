@@ -108,6 +108,15 @@ exports.modifyStatus = function (id, status) {
     db.collection('orders').update({'id': Number(id)}, {$set: {'status': status}});
 }
 
+// modifyQuantity: change quantity
+exports.modifyQuantity = function (id, quantity) {
+  if (id == parseInt(id, 10)) {
+    db.collection('orders').update({'id': Number(id)}, {$set: {'quantity': quantity}});
+  }
+
+}
+
+
 // Other functions =============================================================
 
 // updateProducts: updates the products with how many pending orders there address
