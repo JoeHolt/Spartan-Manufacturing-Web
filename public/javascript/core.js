@@ -97,13 +97,14 @@ var dataController = function mainController($scope, $http){
     let name = values[0];
     let num = values[1];
     let notes = values[2];
+    let quantity = values[4];
     if (name == "") {
       return;
     }
     $http({
       method: 'POST',
       url: '/api/addorder',
-      data: $.param({"name": name, "number": num, "notes": notes }),
+      data: $.param({"name": name, "number": num, "notes": notes, "quantity": quantity }),
       headers: {'Content-Type': 'application/x-www-form-urlencoded'}
     }).then(function(result) {
       location.reload();

@@ -37,6 +37,7 @@
             <th scope ="col">Order Number</th>
             <th scope ="col">Notes</th>
             <th scope ="col">Status</th>
+            <th scope ="col">Quantity</th>
             <th scope ="col">ID</th>
             <th scope ="col">Date Added</th>
             <th scope ="col">Delete</th>
@@ -50,6 +51,7 @@
             <td scope="row">{{ order.number }}</td>
             <td scope="row">{{ order.notes }}</td>
             <td scope="row">{{ order.status }}</td>
+            <td scope="row">{{ order.quantity }}</td>
             <td scope="row">{{ order.id }}</td>
             <td scope="row">{{ order.date }}</td>
             <td>
@@ -69,6 +71,7 @@
             <td scope="row"><input style="border:none" type="text" name="number" placeholder="Type..."></td>
             <td scope="row"><input style="border:none" type="text" name="notes" placeholder="Type..."></td>
             <td scope="row">Pending start</td>
+            <td scope="row"><input style="border:none" type="text" name="quantity" placeholder="Type..."></td>
             <td scope="row">{{ maxID + 1 }}</td>
             <td scope="row">{{ date }}</td>
             <td>
