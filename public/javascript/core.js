@@ -52,7 +52,6 @@ var dataController = function mainController($scope, $http){
     method: 'GET',
     url: '/api/getcurrentdate'
   }).then(function(result) {
-    console.log(result);
     $scope.date = result.data.replace(/['"]+/g, '')
   }, function(error) {
     console.error(error);
@@ -73,6 +72,39 @@ var dataController = function mainController($scope, $http){
     }, function(error) {
       console.error(error);
     });
+  }
+
+  //Add orders
+  $scope.addOrder = function(index) {
+    let values = GetCellValues();
+    let name = values[0];
+    let num = values[1];
+    let notes = values[2];
+    $http({
+      method: 'POST',
+      url: '/api/addorder',
+      data: $.param({"name": name, "number": num, "notes": notes }),
+      headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+    }).then(function(result) {
+      location.reload();
+    }, function(error) {
+      console.error(error);
+    });
+  }
+
+  function GetCellValues() {
+    var table = document.getElementById('orderTable');
+    var values = [];
+    for (var c = 0, r = table.rows.length - 1, m = table.rows[r].cells.length; c < m; c++) {
+      var v = table.rows[table.rows.length-1].cells[c].childNodes[0].value
+      if (v == null) {
+        v = table.rows[table.rows.length-1].cells[c].innerHTML;
+      }
+      if (c != table.rows[r].cells.length-1) {
+        values.push(v);
+      }
+    }
+    return values;
   }
 
 }

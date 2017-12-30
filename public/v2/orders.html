@@ -29,7 +29,7 @@
     </div>
     <!-- Table -->
     <div style="padding-top:15px;">
-      <table class="table page-table" ng-controller="dataController">
+      <table class="table page-table" ng-controller="dataController" id="orderTable">
         <!-- Headings -->
         <thead>
           <tr>
@@ -44,6 +44,7 @@
         </thead>
         <!-- Body -->
         <tbody>
+          <!-- Current orders -->
           <tr ng-repeat="order in orders">
             <td scope="row">{{ order.name }}</td>
             <td scope="row">{{ order.number }}</td>
@@ -57,15 +58,21 @@
               </button>
             </td>
           </tr>
-          <tr>
-            <td scope="row"><input style="border:none" type="text" name="name" placeholder="Product Name..."></td>
-            <td scope="row"><input style="border:none" type="text" name="number" placeholder="Order Number..."></td>
-            <td scope="row"><input style="border:none" type="text" name="notes" placeholder="Notes..."></td>
-            <td scope="row"><input style="border:none" type="text" name="status" placeholder="Status..."></td>
+          <!-- Add new order -->
+          <tr class="add-order-text" id="newOrder">
+            <!-- <td scope="row">
+              <select class="dropdown" name="drop-down">
+                <option ng-repeat="p in products" value="{{ p.name }}">{{ p.name }}</option>
+              </select>
+            </td> -->
+            <td scope="row"><input style="border:none" type="text" name="name" placeholder="Type..."></td>
+            <td scope="row"><input style="border:none" type="text" name="number" placeholder="Type..."></td>
+            <td scope="row"><input style="border:none" type="text" name="notes" placeholder="Type..."></td>
+            <td scope="row">Pending start</td>
             <td scope="row">{{ maxID + 1 }}</td>
             <td scope="row">{{ date }}</td>
             <td>
-              <button type="button" style="background-color: #27ae60; color: white;" ng-click="" class="btn btn-xs">
+              <button type="button" style="background-color: #27ae60; color: white;" ng-click="addOrder($index)" class="btn btn-xs">
                 <span class="glyphicon glyphicon-plus"></span>
               </button>
             </td>
