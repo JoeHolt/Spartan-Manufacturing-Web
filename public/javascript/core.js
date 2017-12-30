@@ -2,6 +2,7 @@
 var display = angular.module('SpartanManApp', []);
 var orders;
 var products;
+var statusCodes;
 
 // Controller ==================================================================
 var dataController = function mainController($scope, $http){
@@ -36,7 +37,8 @@ var dataController = function mainController($scope, $http){
     method: 'GET',
     url: '/api/getstatuscodes'
   }).then(function(result) {
-    $scope.statusCodes = result.data
+    $scope.statusCodes = result.data;
+    statusCodes = result.data;
   }, function(error) {
     console.error(error);
   });
@@ -70,11 +72,11 @@ var dataController = function mainController($scope, $http){
   }
 
   $scope.updateOrder = function(index) {
-    let values = getOrderCellValues(index + 1); // 0: name, 1: number, 2: notes, 4: quantity, 5: id
+    let values = getOrderCellValues(index + 1); // 0: name, 1: number, 2: notes, 3: Status, 4: quantity, 5: id
     $http({
       method: 'POST',
       url: '/api/modifyfullorder',
-      data: $.param({"name": values[0], "id": values[5], "number": values[1], "notes": values[2], "quantity": values[4] }),
+      data: $.param({"name": values[0], "id": values[5], "number": values[1], "notes": values[2], "status": values[3], "quantity": values[4] }),
       headers: {'Content-Type': 'application/x-www-form-urlencoded'}
     }).then(function(result) {
       location.reload();
@@ -121,6 +123,26 @@ var dataController = function mainController($scope, $http){
     }, function(error) {
       console.error(error);
     });
+  }
+
+  // cycle ststys with id
+  $scope.cycleOrderStatus = function(index) {
+    let order = orders[index]
+    let status = getOrderCellValues(index+1)[3]  // 3: statu
+    //console.log(status);
+    var n = 0;
+    for (i = 0; i < statusCodes.length; i++) {
+      if (statusCodes[i].name == status) {
+        n = i;
+        break;
+      }
+    }
+    if (n == statusCodes.length - 1 ) {
+      n = 0;
+    } else {
+      n = n + 1;
+    }
+    document.getElementById(order.id).innerHTML = statusCodes[n].name;
   }
 
   $scope.clearNewOrder = function() {

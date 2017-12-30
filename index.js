@@ -143,7 +143,7 @@ app.post('/api/modifystatus', function(req,res) {
 
 // api/modifyfullorder
 app.post('/api/modifyfullorder', function(req,res) {
-  db.modifyObject("orders", {"id": Number(req.body.id)}, {"name": req.body.name, "number": Number(req.body.number), "notes": req.body.notes, "quantity": req.body.quantity});
+  db.modifyObject("orders", {"id": Number(req.body.id)}, {"name": req.body.name, "number": Number(req.body.number), "notes": req.body.notes, "quantity": req.body.quantity, "status": req.body.status});
   res.redirect('/orders.html');
 })
 
