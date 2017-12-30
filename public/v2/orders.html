@@ -50,7 +50,7 @@
             <td scope="row">{{ order.name }}</td>
             <td scope="row"><input style="border:none" type="text" name="number" value="{{ order.number }}" placeholder="Number..."></td>
             <td scope="row"><input style="border:none" type="text" name="number" value="{{ order.notes }}" placeholder="Notes..."></td>
-            <td scope="row" id="{{order.id}}" ng-click="cycleOrderStatus($index, order.status)">{{ order.status }}</td>
+            <td scope="row" class="unselectable" id="{{order.id}}" ng-click="cycleOrderStatus($index, order.status)">{{ order.status }}</td>
             <td scope="row"><input style="border:none" type="text" name="number" value="{{ order.quantity }}" placeholder="Quantity..."></td>
             <td scope="row">{{ order.id }}</td>
             <td scope="row">{{ order.date }}</td>
