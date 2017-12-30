@@ -84,14 +84,15 @@ app.post('/api/addorder', function(req,res) {
     if (req.body.notes == "") {
       notes = "none";
     }
-    db.addOrder(req.body.name, num, date, notes, result+1, q);
+    let object = { "name": req.body.name, "number": Number(num), "status": "Pending start", "date": date, "notes": notes, "id": Number(result + 1), "quantity": q }
+    db.addObject('orders', object)
     res.redirect('/orders.html');
   })
 });
 
 // api/addproduct
 app.post('/api/addproduct', function(req,res) {
-  db.addProduct(req.body.name, req.body.stock)
+  db.addObject('products', { "name": req.body.name, "stock": Number(req.body.stock) });
   res.redirect('/inventory.html')
 })
 

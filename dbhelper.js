@@ -14,35 +14,6 @@ client.connect(url + "SpartanMan", function (err, datab){
 
 // Functions ===================================================================
 
-// getAllObjects: Returns all objects in a certain collection
-exports.getAllObjects = function (collection, callback) {
-  db.collection(collection).find({}).sort({ name: 1}).toArray(function(err, result) {
-    if (err) {
-      console.error("Error finding orders: " + err.stack);
-      callback(err);
-      return;
-    }
-    callback(0, result);
-    updatePendingProducts()
-  });
-};
-
-// addOrder: Adds an order with a certain name and number
-exports.addOrder = function (name, number, date, notes, id, q) {
-  db.collection('orders').insert({ "name": name, "number": Number(number), "status": "Pending start", "date": date, "notes": notes, id: id, "quantity": q });
-  updatePendingProducts()
-}
-
-// addproduct: adds a new products
-exports.addProduct = function (name, stock) {
-  let n = 0;
-  if (!isNaN(stock)) {
-    n = Number(stock)
-  }
-  db.collection('products').insert({ "name":name, "stock": n})
-  updatePendingProducts()
-}
-
 // getMaxOrderIntAtribute: returns the max integer attribute from order
 exports.getMaxOrderIntAtribute = function (atribute, callback) {
   var max = 0;
@@ -62,14 +33,34 @@ exports.getMaxOrderIntAtribute = function (atribute, callback) {
   });
 }
 
+// getAllObjects: Returns all objects in a certain collection
+exports.getAllObjects = function (collection, callback) {
+  db.collection(collection).find({}).sort({ name: 1}).toArray(function(err, result) {
+    if (err) {
+      console.error("Error finding orders: " + err.stack);
+      callback(err);
+      return;
+    }
+    callback(0, result);
+  });
+};
+
+// addObject: Adds the given object to a given collection
+exports.addObject = function (collection, object) {
+  db.collection(collection).insert(object);
+  updatePendingProducts()
+}
+
 // deleteObject: Deletes an object from a given collection that matches a specific case
 exports.deleteObject = function (collection, matchCase) {
   db.collection(collection).deleteMany(matchCase);
+  updatePendingProducts()
 }
 
 // modifyObject: modifies an object
 exports.modifyObject = function (collection, matchCase, changeCase) {
   db.collection(collection).update(matchCase, { $set: changeCase })
+  updatePendingProducts()
 }
 
 
