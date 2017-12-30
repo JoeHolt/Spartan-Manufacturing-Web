@@ -80,6 +80,9 @@ var dataController = function mainController($scope, $http){
     let name = values[0];
     let num = values[1];
     let notes = values[2];
+    if (name == "") {
+      return;
+    }
     $http({
       method: 'POST',
       url: '/api/addorder',
@@ -100,7 +103,10 @@ var dataController = function mainController($scope, $http){
       if (v == null) {
         v = table.rows[table.rows.length-1].cells[c].innerHTML;
       }
-      if (c != table.rows[r].cells.length-1) {
+      if (c == 0) {
+        var e = document.getElementById("nameDropdown");
+        values.push(e.options[e.selectedIndex].value)
+      } else if (c != table.rows[r].cells.length-1) {
         values.push(v);
       }
     }
