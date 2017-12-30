@@ -97,16 +97,14 @@ app.post('/api/addproduct', function(req,res) {
 
 // api/deleteorder: deletes an order from the database
 app.post('/api/deleteorder', function(req,res) {
-  var n = 0;
-  if (Number(req.body.id) === parseInt(req.body.id, 10)) {
-    db.deleteOrder(Number(req.body.id));
-  }
+  if (Number(req.body.id) === parseInt(req.body.id, 10))
+    db.deleteObject("orders", {"id": Number(req.body.id)} );
   res.redirect('/orders.html');
 })
 
 // api/deleteproduct: deletes an order from the database
 app.post('/api/deleteproduct', function(req,res) {
-  db.deleteProduct(req.body.name);
+  db.deleteObject("products", { "name": req.body.name });
   res.redirect('/inventory.html');
 })
 

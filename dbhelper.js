@@ -43,17 +43,6 @@ exports.addProduct = function (name, stock) {
   updatePendingProducts()
 }
 
-// deleteOrder: Deletes an order with a certain number
-exports.deleteOrder = function (id) {
-  db.collection('orders').deleteMany({ "id": Number(id) })
-  updatePendingProducts()
-};
-
-// deleteProduct: Delets a product
-exports.deleteProduct = function (name) {
-  db.collection('products').deleteMany({ "name": name })
-}
-
 // getMaxOrderIntAtribute: returns the max integer attribute from order
 exports.getMaxOrderIntAtribute = function (atribute, callback) {
   var max = 0;
@@ -71,6 +60,11 @@ exports.getMaxOrderIntAtribute = function (atribute, callback) {
       callback(0, result[0][atribute])
     }
   });
+}
+
+// deleteObject: Deletes an object from a given collection that matches a specific case
+exports.deleteObject = function (collection, matchCase) {
+  db.collection(collection).deleteMany(matchCase);
 }
 
 // modifyObject: modifies an object
