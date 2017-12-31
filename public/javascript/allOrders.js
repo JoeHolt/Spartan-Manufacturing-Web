@@ -137,6 +137,18 @@ var dataController = function mainController($scope, $http){
     location.reload();
   }
 
+  // Checks if status is complete or not
+  $scope.checkStatusCompleted = function (status) {
+    // TODO: Pull from server here
+    var completeStatus = ["Pending start","In production"];
+    for (j = 0; j < completeStatus.length; j++) {
+      if (status == completeStatus[j]) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   // User functions ============================================================
 
   // deletes order

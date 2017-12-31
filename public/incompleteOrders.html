@@ -16,7 +16,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="/javascript/universal.js"></script>
-    <script src="/javascript/incompleteOrders.js"></script>
+    <script src="/javascript/allOrders.js"></script>
 
   </head>
   <body class="page-body" ng-app="SpartanManApp">
@@ -69,22 +69,23 @@
             </td>
           </tr>
           <!-- Current orders -->
-          <tr ng-repeat="order in orders">
-            <td scope="row">{{ order.name }}</td>
-            <td scope="row"><input style="border:none" type="text" name="number" value="{{ order.number }}" placeholder="Number..."></td>
-            <td scope="row"><input style="border:none; min-width: 100%" type="text" name="number" value="{{ order.notes }}" placeholder="Notes..."></td>
-            <td scope="row" class="unselectable" id="{{order.id}}" ng-click="cycleOrderStatus($index, order.status)">{{ order.status }}</td>
-            <td scope="row"><input style="border:none" type="text" name="number" value="{{ order.quantity }}" placeholder="Quantity..."></td>
-            <td scope="row">{{ order.id }}</td>
-            <td scope="row">{{ order.date }}</td>
-            <td>
-              <button type="button" style="background-color: #8e44ad; color: white;" ng-click="updateOrder($index)" class="btn btn-xs">
-                <span class="glyphicon glyphicon-edit"></span>
-              </button>
-              <button type="button" ng-click="deleteOrder($index)" class="btn btn-xs btn-danger">
-                <span class="glyphicon glyphicon-trash"></span>
-              </button>
-            </td>
+          <tr ng-repeat="order in orders" ng-if="checkStatusCompleted(order.status)" >
+              <td scope="row">{{ order.name }}</td>
+              <td scope="row"><input style="border:none" type="text" name="number" value="{{ order.number }}" placeholder="Number..."></td>
+              <td scope="row"><input style="border:none; min-width: 100%" type="text" name="number" value="{{ order.notes }}" placeholder="Notes..."></td>
+              <td scope="row" class="unselectable" id="{{order.id}}" ng-click="cycleOrderStatus($index, order.status)">{{ order.status }}</td>
+              <td scope="row"><input style="border:none" type="text" name="number" value="{{ order.quantity }}" placeholder="Quantity..."></td>
+              <td scope="row">{{ order.id }}</td>
+              <td scope="row">{{ order.date }}</td>
+              <td>
+                <button type="button" style="background-color: #8e44ad; color: white;" ng-click="updateOrder($index)" class="btn btn-xs">
+                  <span class="glyphicon glyphicon-edit"></span>
+                </button>
+                <button type="button" ng-click="deleteOrder($index)" class="btn btn-xs btn-danger">
+                  <span class="glyphicon glyphicon-trash"></span>
+                </button>
+              </td>
+            </div>
           </tr>
         </tbody>
       </table>
