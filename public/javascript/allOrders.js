@@ -174,7 +174,11 @@ var dataController = function mainController($scope, $http){
       }
       if (c == 0 && index == addOrderIndex) {
         var e = document.getElementById("nameDropdown");
-        values.push(e.options[e.selectedIndex].value)
+        if (e != null) {
+          values.push(e.options[e.selectedIndex].value)
+        } else {
+          values.push(v);
+        }
       } else if (c != table.rows[index].cells.length-1) {
         values.push(v);
       }
