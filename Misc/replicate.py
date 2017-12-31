@@ -21,7 +21,7 @@ for name in names:
     #write file out
     rel_path = "../public/productSites/"
     abs_file_path = os.path.join(script_dir, rel_path)
-    with open(abs_file_path + str(name).replace(" ", "")+'.html', 'w') as file:
+    with open(abs_file_path + str(name).replace(" ", "").replace("/","")+'.html', 'w') as file:
         file.write(filedata);
 print("Successfully changed files...")
 # Navigation bar
@@ -29,7 +29,7 @@ navStr = ""
 temp = '<li><a href="*LINK*">*NAME* Orders</a></li>\n'
 for name in names:
     cp = temp
-    link = cp.replace("*LINK*", "/productSites/"+name.replace(" ","")+".html")
+    link = cp.replace("*LINK*", "/productSites/"+name.replace(" ","").replace("/","")+".html")
     name = link.replace("*NAME*", name)
     navStr += name
 # read file
