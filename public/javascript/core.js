@@ -14,8 +14,9 @@ var dataController = function mainController($scope, $http){
     method: 'GET',
     url: '/api/getorders'
   }).then(function(result) {
-    $scope.orders = result.data
-    orders = result.data
+    let sorted = result.data.sort(function(a,b) {return b.number-a.number})
+    $scope.orders = sorted;
+    orders = sorted;
   }, function(error) {
     console.log(error);
   });
