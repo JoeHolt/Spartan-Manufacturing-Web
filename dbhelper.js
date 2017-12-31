@@ -68,36 +68,35 @@ exports.modifyObject = function (collection, matchCase, changeCase) {
 
 // updateProducts: updates the products with how many pending orders there address
 var updatePendingProducts = function() {
-    db.collection('products').find({}).toArray(function(err, result) {
+    //Gets all prodcuts - loop over these and see how many pending there are
+    db.collection('products').find({}).toArray(function(err, products) {
       if (err) {
         console.error("Error reading from database");
       }
-      for (var i = 0; i < result.length; i++) {
-        var product_name = result[i].name;
+      // Loop over all of the products for a given product to get given values
+      for (var i = 0; i < products.length; i++) {
+        var product_name = products[i].name;
         db.collection('products').update({"name": product_name}, { $set: { "pending": 0 }})
-        db.collection('orders').find({"name": product_name}).toArray(function(err,res) {
+        db.collection('orders').find({"name": product_name}).toArray(function(err,orders) {
           if (err) {
             console.error("Error reading orders from database");
           }
-          if (typeof res === "undefined") {
-            return;
-          }
-          var pending = res.length;
-          //Pending is the order that have that name
-          if (pending > 0) {
-            var n = 0;
-            for (var j = 0; j<pending-1;j++) {
-              let s = res[j].status;
-              exports.getAllObjects('statusCodes', function(err, r) {
-                let index = findIndexOfNameInArray(s, r);
-                if (r[index].finished == false) {
-                  n += Number(res[j].quantity);
+          //Check if there are any orders with name, loop over
+          if (orders.length > 0) {
+            var pending = 0;
+            // Loop over orders
+            exports.getAllObjects('statusCodes', function(err, statusCodes) {
+              for (var j = 0; j<orders.length;j++) {
+                let status = orders[j].status;
+                let index = findIndexOfNameInArray(status, statusCodes);
+                if (statusCodes[index].finished == false) {
+                  pending += Number(orders[j].quantity);
                 }
-                db.collection('products').update({"name": res[0].name}, { $set: { "pending": n }})
-                return;
-              })
-            }
-            db.collection('products').update({"name": res[0].name}, { $set: { "pending": n }})
+              }
+              db.collection('products').update({"name": orders[0].name}, { $set: { "pending": Number(pending) }})
+              return;
+            })
+            db.collection('products').update({"name": orders[0].name}, { $set: { "pending": Number(pending) }})
           }
         })
       }
