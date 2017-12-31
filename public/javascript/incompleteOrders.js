@@ -28,7 +28,7 @@ var dataController = function mainController($scope, $http){
   }).then(function(result) {
     let sorted = result.data.sort(function(a,b) {return b.number-a.number})
     var incomplete = [];
-    for (var i = 0; i < sorted.length; i++) {
+    for (var i = 0; i < sorted.count; i++) {
       if (sorted[i].status == "Pending start" || sorted[i].status == "In production") {
         incomplete.push(sorted[i])
       }
