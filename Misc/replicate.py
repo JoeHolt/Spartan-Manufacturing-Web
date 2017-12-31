@@ -11,6 +11,7 @@ cursor = col.find({})
 names = [] # names of pages that need to be completed
 for document in cursor:
     names.append(document['name'])
+names.sort()
 for name in names:
     # read file
     script_dir = os.path.dirname(__file__)
