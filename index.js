@@ -92,6 +92,8 @@ app.post('/api/addorder', function(req,res) {
 
 // api/addproduct
 app.post('/api/addproduct', function(req,res) {
+  var spawn = require("child_process").spawn;
+  var process = spawn('python3',[__dirname + "/Misc/replicate.py"]);
   db.addObject('products', { "name": req.body.name, "stock": Number(req.body.stock) });
   res.redirect('back');
 })
@@ -105,6 +107,8 @@ app.post('/api/deleteorder', function(req,res) {
 
 // api/deleteproduct: deletes an order from the database
 app.post('/api/deleteproduct', function(req,res) {
+  var spawn = require("child_process").spawn;
+  var process = spawn('python3',[__dirname + "/Misc/replicate.py"]); 
   db.deleteObject("products", { "name": req.body.name });
   res.redirect('back');
 })
