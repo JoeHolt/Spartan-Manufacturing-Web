@@ -161,7 +161,8 @@ var dataController = function mainController($scope, $http){
   // cycle ststys with id
   $scope.cycleOrderStatus = function(index) {
     let order = orders[index]
-    let status = getOrderCellValues(index+1)[3]  // 3: status
+    let status = getOrderCellValues(index+2)[3]  // 3: status
+    console.log(index+1);
     //console.log(status);
     var n = 0;
     for (i = 0; i < statusCodes.length; i++) {
