@@ -2,7 +2,7 @@
 <html>
   <head>
 
-    <title>All Orders</title>
+    <title>*REPLACE* Orders</title>
     <!-- META -->
     <meta charset="utf8">
     <meta name="description" content="Orders page for McFarland High School's Spartan Manufacturing Site">
@@ -24,8 +24,8 @@
     <div id="nav-placeholder"></div>
     <!-- Title -->
     <div class="page-title">
-      <p class="page-h1">All Orders</p>
-      <p class="page-h2">All orders for Spartan Manufacturing</p>
+      <p class="page-h1">*REPLACE* Orders</p>
+      <p class="page-h2">*REPLACE* orders for Spartan Manufacturing</p>
     </div>
     <!-- Table -->
     <div style="padding-top:15px; max-width:100%;">
@@ -69,25 +69,28 @@
             </td>
           </tr>
           <!-- Current orders -->
-          <tr ng-repeat="order in orders">
-            <td scope="row">{{ order.name }}</td>
-            <td scope="row"><input style="border:none" type="text" name="number" value="{{ order.number }}" placeholder="Number..."></td>
-            <td scope="row"><input style="border:none; min-width: 100%" type="text" name="number" value="{{ order.notes }}" placeholder="Notes..."></td>
-            <td scope="row" class="unselectable" id="{{order.id}}" ng-click="cycleOrderStatus($index, order.status)">{{ order.status }}</td>
-            <td scope="row"><input style="border:none" type="text" name="number" value="{{ order.quantity }}" placeholder="Quantity..."></td>
-            <td scope="row">{{ order.id }}</td>
-            <td scope="row">{{ order.date }}</td>
-            <td>
-              <button type="button" style="background-color: #8e44ad; color: white;" ng-click="updateOrder($index)" class="btn btn-xs">
-                <span class="glyphicon glyphicon-edit"></span>
-              </button>
-              <button type="button" ng-click="deleteOrder($index)" class="btn btn-xs btn-danger">
-                <span class="glyphicon glyphicon-trash"></span>
-              </button>
-            </td>
+          <tr ng-repeat="order in orders" ng-if="order.name == '*REPLACE*' " >
+              <td scope="row">{{ order.name }}</td>
+              <td scope="row"><input style="border:none" type="text" name="number" value="{{ order.number }}" placeholder="Number..."></td>
+              <td scope="row"><input style="border:none; min-width: 100%" type="text" name="number" value="{{ order.notes }}" placeholder="Notes..."></td>
+              <td scope="row" class="unselectable" id="{{order.id}}" ng-click="cycleOrderStatus($index, order.status)">{{ order.status }}</td>
+              <td scope="row"><input style="border:none" type="text" name="number" value="{{ order.quantity }}" placeholder="Quantity..."></td>
+              <td scope="row">{{ order.id }}</td>
+              <td scope="row">{{ order.date }}</td>
+              <td>
+                <button type="button" style="background-color: #8e44ad; color: white;" ng-click="updateOrder($index)" class="btn btn-xs">
+                  <span class="glyphicon glyphicon-edit"></span>
+                </button>
+                <button type="button" ng-click="deleteOrder($index)" class="btn btn-xs btn-danger">
+                  <span class="glyphicon glyphicon-trash"></span>
+                </button>
+              </td>
+            </div>
           </tr>
         </tbody>
       </table>
     </div>
+
+
   </body>
 </html>
