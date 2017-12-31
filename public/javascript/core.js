@@ -3,6 +3,7 @@ var display = angular.module('SpartanManApp', []);
 var orders;
 var products;
 var statusCodes;
+var addOrderIndex = 1;
 
 // Controller ==================================================================
 var dataController = function mainController($scope, $http){
@@ -73,11 +74,36 @@ var dataController = function mainController($scope, $http){
   }
 
   $scope.updateOrder = function(index) {
-    let values = getOrderCellValues(index + 1); // 0: name, 1: number, 2: notes, 3: Status, 4: quantity, 5: id
+    // PLus two offests add cell row and header
+    let values = getOrderCellValues(index + 2); // 0: name, 1: number, 2: notes, 3: Status, 4: quantity, 5: id
     $http({
       method: 'POST',
       url: '/api/modifyfullorder',
       data: $.param({"name": values[0], "id": values[5], "number": values[1], "notes": values[2], "status": values[3], "quantity": values[4] }),
+      headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+    }).then(function(result) {
+      location.reload();
+    }, function(error) {
+      console.error(error);
+    });
+  }
+
+  //Add orders
+  $scope.addOrder = function() {
+    let table = document.getElementById('orderTable');
+    // Add order cell
+    let values = getOrderCellValues(addOrderIndex); // 0: name, 1: number, 2: notes, 3: quantity
+    let name = values[0];
+    if (name == "") return;
+    addOrder(name, values[1], values[2], values[4]);
+  }
+
+  // adds order
+  function addOrder(name, num, notes, quantity) {
+    $http({
+      method: 'POST',
+      url: '/api/addorder',
+      data: $.param({"name": name, "number": num, "notes": notes, "quantity": quantity }),
       headers: {'Content-Type': 'application/x-www-form-urlencoded'}
     }).then(function(result) {
       location.reload();
@@ -113,15 +139,6 @@ var dataController = function mainController($scope, $http){
     }, function(error) {
       console.error(error);
     });
-  }
-
-  //Add orders
-  $scope.addOrder = function() {
-    let table = document.getElementById('orderTable');
-    let values = getOrderCellValues(table.rows.length - 1); // 0: name, 1: number, 2: notes, 3: quantity
-    let name = values[0];
-    if (name == "") return;
-    addOrder(name, values[1], values[2], values[4]);
   }
 
   $scope.addProduct = function(index) {
@@ -181,20 +198,6 @@ var dataController = function mainController($scope, $http){
     });
   }
 
-  // adds order
-  function addOrder(name, num, notes, quantity) {
-    $http({
-      method: 'POST',
-      url: '/api/addorder',
-      data: $.param({"name": name, "number": num, "notes": notes, "quantity": quantity }),
-      headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-    }).then(function(result) {
-      location.reload();
-    }, function(error) {
-      console.error(error);
-    });
-  }
-
   // Gets the value for a all cells in the add product row
   function getProductCellValues(index) {
     var table = document.getElementById('productTable');
@@ -220,7 +223,7 @@ var dataController = function mainController($scope, $http){
       if (v == null) {
         v = table.rows[index].cells[c].innerHTML;
       }
-      if (c == 0 && index == table.rows.length-1) {
+      if (c == 0 && index == addOrderIndex) {
         var e = document.getElementById("nameDropdown");
         values.push(e.options[e.selectedIndex].value)
       } else if (c != table.rows[index].cells.length-1) {
