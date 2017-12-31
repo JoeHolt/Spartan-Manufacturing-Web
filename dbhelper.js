@@ -87,7 +87,8 @@ var updatePendingProducts = function() {
           if (pending > 0) {
             var n = 0;
             for (var j = 0; j<pending;j++) {
-              if (res[j].status != "Completed") {
+              let s = res[j].status;
+              if (s == "Pending start" || s == "In production") {
                 n += Number(res[j].quantity);
               }
             }
