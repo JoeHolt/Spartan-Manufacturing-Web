@@ -86,15 +86,29 @@ var updatePendingProducts = function() {
           //Pending is the order that have that name
           if (pending > 0) {
             var n = 0;
-            for (var j = 0; j<pending;j++) {
+            for (var j = 0; j<pending-1;j++) {
               let s = res[j].status;
-              if (s == "Pending start" || s == "In production") {
-                n += Number(res[j].quantity);
-              }
+              exports.getAllObjects('statusCodes', function(err, r) {
+                let index = findIndexOfNameInArray(s, r);
+                if (r[index].finished == false) {
+                  n += Number(res[j].quantity);
+                }
+                db.collection('products').update({"name": res[0].name}, { $set: { "pending": n }})
+                return;
+              })
             }
             db.collection('products').update({"name": res[0].name}, { $set: { "pending": n }})
           }
         })
       }
     });
+}
+
+// findIndexOfValueInArray
+var findIndexOfNameInArray = function(value, arr) {
+  for (i = 0; i < arr.length; i++) {
+    if (arr[i].name == value) {
+      return i;
+    }
+  }
 }

@@ -84,7 +84,7 @@ app.post('/api/addorder', function(req,res) {
     if (req.body.notes == "") {
       notes = "none";
     }
-    let object = { "name": req.body.name, "number": Number(num), "status": "Pending start", "date": date, "notes": notes, "id": Number(result + 1), "quantity": q }
+    let object = { "name": req.body.name, "number": Number(num), "status": "Pending start", "date": date, "notes": notes, "id": Number(result + 1), "quantity": Number(q) }
     db.addObject('orders', object)
     res.redirect('/orders.html');
   })
