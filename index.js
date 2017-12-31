@@ -86,27 +86,27 @@ app.post('/api/addorder', function(req,res) {
     }
     let object = { "name": req.body.name, "number": Number(num), "status": "Pending start", "date": date, "notes": notes, "id": Number(result + 1), "quantity": Number(q) }
     db.addObject('orders', object)
-    res.redirect('/orders.html');
+    res.redirect('back');
   })
 });
 
 // api/addproduct
 app.post('/api/addproduct', function(req,res) {
   db.addObject('products', { "name": req.body.name, "stock": Number(req.body.stock) });
-  res.redirect('/inventory.html')
+  res.redirect('back');
 })
 
 // api/deleteorder: deletes an order from the database
 app.post('/api/deleteorder', function(req,res) {
   if (Number(req.body.id) === parseInt(req.body.id, 10))
     db.deleteObject("orders", {"id": Number(req.body.id)} );
-  res.redirect('/orders.html');
+  res.redirect('back');
 })
 
 // api/deleteproduct: deletes an order from the database
 app.post('/api/deleteproduct', function(req,res) {
   db.deleteObject("products", { "name": req.body.name });
-  res.redirect('/inventory.html');
+  res.redirect('back');
 })
 
 // api/changeinventory: modifiys object's Inventory
@@ -114,7 +114,7 @@ app.post('/api/modifyinventory', function(req,res) {
   if (!isNaN(req.body.inventory)) {
     db.modifyObject("products", { "name":req.body.name }, { "stock": Number(req.body.inventory) })
   }
-  res.redirect('/inventory.html');
+  res.redirect('back');
 });
 
 // api/edit notes: Edits the notes of the productTable
@@ -122,7 +122,7 @@ app.post('/api/modifynotes', function(req,res) {
   if (!isNaN(req.body.id)) {
       db.modifyObject("orders", { "id":Number(req.body.id) }, {"notes": req.body.notes})
   }
-  res.redirect('/orders.html');
+  res.redirect('back');
 });
 
 // api/modifyquantity: Edits the notes of the productTable
@@ -130,7 +130,7 @@ app.post('/api/modifyquantity', function(req,res) {
   if (!isNaN(req.body.id) && !isNaN(req.body.quantity)) {
     db.modifyObject("orders", {"id": Number(req.body.id)}, {"quantity": Number(req.body.quantity)});
   }
-  res.redirect('/orders.html');
+  res.redirect('back');
 });
 
 // api/completeorder: marks an order as complleted
@@ -138,19 +138,19 @@ app.post('/api/modifystatus', function(req,res) {
   if (!isNaN(req.body.id)) {
     db.modifyObject("orders", {"id": Number(req.body.id)}, {"status": req.body.status});
   }
-  res.redirect('/orders.html');
+  res.redirect('back');
 });
 
 // api/modifyfullorder
 app.post('/api/modifyfullorder', function(req,res) {
   db.modifyObject("orders", {"id": Number(req.body.id)}, {"name": req.body.name, "number": Number(req.body.number), "notes": req.body.notes, "quantity": req.body.quantity, "status": req.body.status});
-  res.redirect('/orders.html');
+  res.redirect('back');
 })
 
 // api/modifyfullproduct
 app.post('/api/modifyfullproduct', function(req,res) {
   db.modifyObject("products", {"name": req.body.name}, {"stock": Number(req.body.stock)});
-  res.redirect('/orders.html');
+  res.redirect('back');
 })
 
 // Server ======================================================================
