@@ -4,11 +4,14 @@ var orders;
 var products;
 var statusCodes;
 var addOrderIndex = 1;
+var shouldIncludeCompleted = true;
 
 // Controller ==================================================================
 var dataController = function mainController($scope, $http){
 
   // ANGULAR METHODS ===========================================================
+
+  $scope.shouldIncludeCompleted = true;
 
   //Get all orders
   $http({
@@ -137,7 +140,7 @@ var dataController = function mainController($scope, $http){
     location.reload();
   }
 
-  // Checks if status is complete or not
+  // Checks if status is complete or not. Resturns true if not complete
   $scope.checkStatusCompleted = function (status) {
     // TODO: Pull from server here
     var completeStatus = "Completed";
@@ -145,6 +148,11 @@ var dataController = function mainController($scope, $http){
       return true;
     }
     return false;
+  }
+
+  // completed button\
+  $scope.sortCompleted = function () {
+    $scope.shouldIncludeCompleted = !$scope.shouldIncludeCompleted;
   }
 
   // User functions ============================================================

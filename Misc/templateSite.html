@@ -33,14 +33,14 @@
         <!-- Headings -->
         <thead>
           <tr>
-            <th scope ="col">Order Name</th>
-            <th scope ="col">Order Number (E)</th>
-            <th scope ="col">Notes (E)</th>
-            <th scope ="col">Status (E)</th>
-            <th scope ="col">Quantity (E)</th>
-            <th scope ="col">ID</th>
-            <th scope ="col">Date Added</th>
-            <th scope ="col">Action</th>
+            <th scope="col">Order Name</th>
+            <th scope="col">Order Number (E)</th>
+            <th scope="col">Notes (E)</th>
+            <th scope="col" ng-click="sortCompleted()">Status (E) <span class="caret"></span></th>
+            <th scope="col">Quantity (E)</th>
+            <th scope="col">ID</th>
+            <th scope="col">Date Added</th>
+            <th scope="col">Action</th>
           </tr>
         </thead>
         <!-- Body -->
@@ -65,7 +65,7 @@
             </td>
           </tr>
           <!-- Current orders -->
-          <tr ng-repeat="order in orders" ng-if="order.name == '*REPLACE*' " >
+          <tr ng-repeat="order in orders" ng-if="(checkStatusCompleted(order.status) == false && shouldIncludeCompleted == true) || (checkStatusCompleted(order.status) == true) && order.name == '*REPLACE*'" >
               <td scope="row">{{ order.name }}</td>
               <td scope="row"><input style="border:none" type="text" name="number" value="{{ order.number }}" placeholder="Number..."></td>
               <td scope="row"><input style="border:none; min-width: 100%" type="text" name="number" value="{{ order.notes }}" placeholder="Notes..."></td>
