@@ -65,7 +65,7 @@
             </td>
           </tr>
           <!-- Current orders -->
-          <tr ng-repeat="order in orders" ng-if="(checkStatusCompleted(order.status) == false && shouldIncludeCompleted == true) || (checkStatusCompleted(order.status) == true) && order.name == '*REPLACE*'" >
+          <tr ng-repeat="order in orders" ng-if="((checkStatusCompleted(order.status) == false && shouldIncludeCompleted == true) || (checkStatusCompleted(order.status) == true)) && order.name == '*REPLACE*'" >
               <td scope="row">{{ order.name }}</td>
               <td scope="row"><input style="border:none" type="text" name="number" value="{{ order.number }}" placeholder="Number..."></td>
               <td scope="row"><input style="border:none; min-width: 100%" type="text" name="number" value="{{ order.notes }}" placeholder="Notes..."></td>
