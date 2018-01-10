@@ -53,7 +53,7 @@ This application makes use of MongoDB to store all of its data. All data is stor
 - products
 - statusCodes
 
-Each has their own objects with the following attributes
+**Objects in each collection have the following attributes:**
 
 Orders:
 - name
@@ -76,18 +76,15 @@ Status codes:
 
 # Images
 
-Landing
-
 ![Landing](https://i.imgur.com/tcGaciW.png)
 
-Orders
 
 ![Orders](https://i.imgur.com/QSG5ua0.png)
 
-Products
 
 ![Products](https://i.imgur.com/IJ2HDdJ.png)
-	
+
+
 # Running the server
 
 To get the web server up and running use the typical node enviorment set up. Download the project and in the directory run:
